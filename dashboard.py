@@ -171,12 +171,9 @@ with st.spinner("Loading data..."):
 
 st.sidebar.header("⚙️ Settings")
 
-# Country selection
-countries = st.sidebar.multiselect(
-    "Select Countries",
-    options=['AT', 'BE', 'BG'],
-    default=['AT', 'BE', 'BG']
-)
+# Countries covered
+countries = ['AT', 'BE', 'BG']
+st.sidebar.markdown("**Countries:** Austria (AT), Belgium (BE), Bulgaria (BG)")
 
 # Section selection
 section = st.sidebar.radio(
