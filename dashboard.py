@@ -376,7 +376,7 @@ elif section == "📈 Forecast Comparison":
                     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
                 )
                 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
                 
                 # Metrics table
                 st.markdown("#### Performance Metrics")
@@ -394,7 +394,7 @@ elif section == "📈 Forecast Comparison":
                             'RMSE': '{:.2f}',
                             'MSE': '{:.2f}',
                             'PI_Coverage_80%': '{:.2f}'
-                        }), use_container_width=True)
+                        }), width='stretch')
                 
                 with col2:
                     if lstm_metrics is not None and country in lstm_metrics.index:
@@ -568,7 +568,7 @@ elif section == "🚨 Anomaly Detection":
                             'Forecast': '{:.2f}',
                             'Z-score': '{:.2f}'
                         }),
-                        use_container_width=True
+                        width='stretch'
                     )
 
 # SECTION 4: LIVE MONITORING
@@ -625,7 +625,7 @@ elif section == "🔄 Live Monitoring":
                             'Avg MASE': '{:.4f}',
                             'Refits': '{:.0f}'
                         }).highlight_min(subset=['Avg MAPE (%)'], color='lightgreen'),
-                        use_container_width=True,
+                        width='stretch',
                         hide_index=True
                     )
         
@@ -922,7 +922,7 @@ elif section == "🏆 Model Comparison":
                 'RMSE': '{:.2f}',
                 'MSE': '{:.2f}'
             }).highlight_min(axis=0, color='lightgreen'),
-            use_container_width=True
+            width='stretch'
         )
     
     # Visual comparison
