@@ -150,10 +150,11 @@ def load_metrics():
     try:
         sarima_metrics = pd.read_csv('results/phase4_results/metrics_comparison.csv', index_col=0)
         lstm_metrics = pd.read_csv('results/phase4b_lstm_results/metrics_comparison.csv', index_col=0)
-        gru_metrics = pd.read_csv('results/phase3d_gru_results/metrics_comparison.csv', index_col=0)
-        rnn_metrics = pd.read_csv('results/phase3e_vanilla_rnn_results/metrics_comparison.csv', index_col=0)
+        gru_metrics = pd.read_csv('results/phase4c_gru_results/metrics_comparison.csv', index_col=0)
+        rnn_metrics = pd.read_csv('results/phase4d_rnn_results/metrics_comparison.csv', index_col=0)
         return sarima_metrics, lstm_metrics, gru_metrics, rnn_metrics
-    except Exception:
+    except Exception as e:
+        st.error(f"Error loading metrics: {e}")
         return None, None, None, None
 
 # Load all data
