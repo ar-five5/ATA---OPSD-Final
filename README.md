@@ -16,6 +16,7 @@ This project implements a complete ML pipeline for electric load forecasting wit
 - **50,401 hours** of historical data (2014-2020)
 - **3 countries** analyzed: Austria, Belgium, Bulgaria
 - **Best accuracy**: 0.41 MASE (GRU on Austria)
+- **Data split**: 80/10/10 (40,320/5,040/5,041 hours)
 - **Live monitoring**: 3,500-hour simulation with adaptive refitting
 - **Interactive dashboard**: Real-time visualization with Streamlit
 
@@ -127,7 +128,7 @@ ATA/
 
 ### ✅ Phase 1: Data Cleaning & Preprocessing
 - Data validation and quality checks
-- 80/10/10 train/validation/test split (2,304/288/288 hours)
+- 80/10/10 train/validation/test split (40,320/5,040/5,041 hours)
 - Data saved to `data/preprocessed/`
 - **Dataset:** 50,401 hours (2014-12-31 to 2020-09-30)
 
