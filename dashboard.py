@@ -226,11 +226,11 @@ if section == "📊 Overview":
     with col1:
         st.subheader("🎯 Key Findings")
         st.markdown("""
-        - **Excellent Accuracy:** SARIMA achieved 2.96-7.14% MAPE across all countries
+        - **Excellent Accuracy:** SARIMA achieved 2.95-7.14% MAPE across all countries
         - **Neural Networks Excel:** GRU achieved best performance with 0.41 MASE for Austria
         - **Live Adaptation:** 10 successful model refits over 3,500 hours (146 days)
         - **Anomaly Detection:** 21 anomalies detected across 2,928 data points (0.72% rate)
-        - **Data Coverage:** 50,401 hours spanning 6 years (2014-2020)
+        - **Data Coverage:** 50,398 hours spanning 6 years (2014-2020)
         """)
     
     with col2:
@@ -253,19 +253,19 @@ if section == "📊 Overview":
     
     with col1:
         st.markdown("**Training Data**")
-        st.write("• 40,320 hours (1,680 days)")
+        st.write("• 40,319 hours (1,680 days)")
         st.write("• 80% of total data")
         st.write("• Used for model training")
     
     with col2:
         st.markdown("**Validation Data**")
-        st.write("• 5,040 hours (210 days)")
+        st.write("• 5,039 hours (210 days)")
         st.write("• 10% of total data")
         st.write("• Used for hyperparameter tuning")
     
     with col3:
         st.markdown("**Test Data**")
-        st.write("• 5,041 hours (210 days)")
+        st.write("• 5,040 hours (210 days)")
         st.write("• 10% of total data")
         st.write("• Used for final evaluation")
 

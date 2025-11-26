@@ -13,10 +13,10 @@
 
 This project implements a complete ML pipeline for electric load forecasting with:
 - **4 forecasting models**: SARIMA, LSTM, GRU, Vanilla RNN
-- **50,401 hours** of historical data (2014-2020)
+- **50,398 hours** of historical data (2014-2020)
 - **3 countries** analyzed: Austria, Belgium, Bulgaria
 - **Best accuracy**: 0.41 MASE (GRU on Austria)
-- **Data split**: 80/10/10 (40,320/5,040/5,041 hours)
+- **Data split**: 80/10/10 (40,319/5,039/5,040 hours)
 - **Live monitoring**: 3,500-hour simulation with adaptive refitting
 - **Interactive dashboard**: Real-time visualization with Streamlit
 
@@ -128,9 +128,9 @@ ATA/
 
 ### ✅ Phase 1: Data Cleaning & Preprocessing
 - Data validation and quality checks
-- 80/10/10 train/validation/test split (40,320/5,040/5,041 hours)
+- 80/10/10 train/validation/test split (40,319/5,039/5,040 hours)
 - Data saved to `data/preprocessed/`
-- **Dataset:** 50,401 hours (2014-12-31 to 2020-09-30)
+- **Dataset:** 50,398 hours (2014-12-31 to 2020-09-30)
 
 ### ✅ Phase 2: Exploratory Data Analysis
 - Sanity check visualization (14 days)
@@ -163,15 +163,15 @@ ATA/
 - **Output:** 8 files in `results/phase4_results/`
 - **Performance:**
   - AT: MAPE 7.14%, MASE 0.96, 75% PI coverage
-  - BE: MAPE 5.58%, MASE 0.96, 71% PI coverage
-  - BG: MAPE 2.96%, MASE 0.85, 86% PI coverage ⭐ Best
+  - BE: MAPE 5.53%, MASE 0.96, 71% PI coverage
+  - BG: MAPE 2.95%, MASE 0.85, 86% PI coverage ⭐ Best
 
 #### Neural Network Forecasting
 - All 3 models (LSTM, GRU, RNN) forecasted on test set
 - **LSTM Performance:**
-  - AT: MAPE 5.24%, MASE 0.67 (⬆ 27% vs SARIMA)
-  - BE: MAPE 3.67%, MASE 0.63 (⬆ 34% vs SARIMA)
-  - BG: MAPE 4.50%, MASE 1.25
+  - AT: MAPE 5.62%, MASE 0.61
+  - BE: MAPE 4.18%, MASE 0.66
+  - BG: MAPE 5.30%, MASE 1.19
 - **GRU Performance:**
   - AT: MASE 0.41 ⭐ Best for AT
   - BE: MASE 0.95
@@ -274,17 +274,17 @@ python src/phase6_live_adaptation/live_monitoring_simulation.py
 - **BG**: Bulgaria
 
 ## Key Findings
-1. **SARIMA Strong Baseline**: 2.96-7.14% MAPE across all countries
+1. **SARIMA Strong Baseline**: 2.95-7.14% MAPE across all countries
 2. **Neural Networks Excel**: GRU achieved 0.41 MASE for AT (best overall)
-3. **BG Most Predictable**: Lowest MAPE (2.96%) with SARIMA
+3. **BG Most Predictable**: Lowest MAPE (2.95%) with SARIMA
 4. **Minimal Anomalies**: 21 anomalies across 2,928 points (0.72% rate)
 5. **Perfect ML Detection**: Anomaly classifier achieves 100% PR-AUC
 6. **Live Adaptation Works**: 10 successful SARIMA refits over 3,500 hours
 7. **Model Ranking by Average MASE**:
    - 🥇 **GRU: 0.73** (best overall)
-   - 🥈 LSTM: 0.85
-   - 🥉 SARIMA: 0.92
-   - 📊 Vanilla RNN: 0.75
+   - 🥈 Vanilla RNN: 0.75
+   - 🥉 LSTM: 0.82
+   - 📊 SARIMA: 0.92
 
 ## Technical Stack
 - **Python 3.13** with GPU acceleration
