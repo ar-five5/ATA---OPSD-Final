@@ -51,7 +51,7 @@ def load_sarima_forecasts():
     forecasts = {}
     for country in ['AT', 'BE', 'BG']:
         try:
-            df = pd.read_csv(f'phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
+            df = pd.read_csv(f'results/phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
             forecasts[country] = df
         except Exception:
             st.warning(f"Could not load SARIMA forecasts for {country}")
@@ -63,7 +63,7 @@ def load_lstm_forecasts():
     forecasts = {}
     for country in ['AT', 'BE', 'BG']:
         try:
-            df = pd.read_csv(f'phase4b_lstm_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
+            df = pd.read_csv(f'results/phase4b_lstm_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
             forecasts[country] = df
         except Exception:
             pass
@@ -148,8 +148,8 @@ def load_live_simulation():
 def load_metrics():
     """Load model comparison metrics"""
     try:
-        sarima_metrics = pd.read_csv('phase4_results/metrics_comparison.csv', index_col=0)
-        lstm_metrics = pd.read_csv('phase4b_lstm_results/metrics_comparison.csv', index_col=0)
+        sarima_metrics = pd.read_csv('results/phase4_results/metrics_comparison.csv', index_col=0)
+        lstm_metrics = pd.read_csv('results/phase4b_lstm_results/metrics_comparison.csv', index_col=0)
         gru_metrics = pd.read_csv('results/phase3d_gru_results/metrics_comparison.csv', index_col=0)
         rnn_metrics = pd.read_csv('results/phase3e_vanilla_rnn_results/metrics_comparison.csv', index_col=0)
         return sarima_metrics, lstm_metrics, gru_metrics, rnn_metrics
