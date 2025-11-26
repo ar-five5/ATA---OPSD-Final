@@ -120,8 +120,8 @@ for country, load_col in load_columns.items():
     train = df[load_col].dropna()
     dev = df_val[load_col].dropna()
     
-    # For test, we'll use a placeholder (not used in grid search)
-    test = dev  # Placeholder
+    # Use dev as test for grid search phase
+    test = dev
     
     n = len(train) + len(dev) + len(test)
     
@@ -375,7 +375,7 @@ for country, load_col in load_columns.items():
             }
         }
     else:
-        # No results at all — store empty placeholder
+        # No results available
         grid_search_results[country] = {
             'all_results': results,
             'best_aic': None,

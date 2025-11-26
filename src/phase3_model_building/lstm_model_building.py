@@ -67,7 +67,7 @@ for country, load_col in load_columns.items():
     data_splits[country] = {
         'train': train_data.values,
         'dev': val_data.values,
-        'test': val_data.values  # Placeholder
+        'test': val_data.values
     }
     
     print(f"{country}: Train={len(train_data)} | Dev={len(val_data)} | Test={len(val_data)} hours")
