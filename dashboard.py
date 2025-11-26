@@ -226,11 +226,11 @@ if section == "📊 Overview":
     with col1:
         st.subheader("🎯 Key Findings")
         st.markdown("""
-        - **Excellent Accuracy:** SARIMA achieved 3.31-7.14% MAPE across all countries
-        - **LSTM Improvement:** Neural models outperformed SARIMA by 27-34% in MASE
-        - **Live Adaptation:** 10 successful model refits over 3,500 hours
-        - **Anomaly Detection:** 21 total anomalies detected using z-score + CUSUM
-        - **Data Quality:** 2× minimum training requirement (96 vs 60 days)
+        - **Excellent Accuracy:** SARIMA achieved 2.96-7.14% MAPE across all countries
+        - **Neural Networks Excel:** GRU achieved best performance with 0.41 MASE for Austria
+        - **Live Adaptation:** 10 successful model refits over 3,500 hours (146 days)
+        - **Anomaly Detection:** 21 anomalies detected across 2,928 data points (0.72% rate)
+        - **Data Coverage:** 50,401 hours spanning 6 years (2014-2020)
         """)
     
     with col2:

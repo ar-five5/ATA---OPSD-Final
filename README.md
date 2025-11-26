@@ -30,7 +30,7 @@ This project implements a complete ML pipeline for electric load forecasting wit
 | **SARIMA** | 0.96 | 0.96 | **0.85** 🥇 | 0.92 |
 
 - **Best Overall Model**: GRU (0.73 average MASE)
-- **Anomalies Detected**: 21 total (2.15% rate)
+- **Anomalies Detected**: 21 total (0.72% rate)
 - **Perfect Anomaly Classification**: 100% PR-AUC
 - **Live Adaptation**: 10 successful refits over 146 days
 
@@ -199,7 +199,7 @@ ATA/
 - Logistic Regression + LightGBM classifiers
 - **Output:** 3 files in `outputs/`
 - **Performance:**
-  - Dataset: 473 samples (3 positive, 614 negative)
+  - Dataset: 153 samples (3 positive, 150 negative)
   - PR-AUC: 1.0000 (both models)
   - F1 @ Precision≥0.80: 1.0000
   - Top feature: `current_z_score_abs` (importance: 276)
@@ -277,7 +277,7 @@ python src/phase6_live_adaptation/live_monitoring_simulation.py
 1. **SARIMA Strong Baseline**: 2.96-7.14% MAPE across all countries
 2. **Neural Networks Excel**: GRU achieved 0.41 MASE for AT (best overall)
 3. **BG Most Predictable**: Lowest MAPE (2.96%) with SARIMA
-4. **Minimal Anomalies**: Only 21 anomalies in 976 hours (2.15% rate)
+4. **Minimal Anomalies**: 21 anomalies across 2,928 points (0.72% rate)
 5. **Perfect ML Detection**: Anomaly classifier achieves 100% PR-AUC
 6. **Live Adaptation Works**: 10 successful SARIMA refits over 3,500 hours
 7. **Model Ranking by Average MASE**:
