@@ -1,4 +1,4 @@
-"""Data Loading and Cleaning for OPSD Power Dataset"""
+"""Load and clean OPSD power data"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -11,12 +11,12 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 print("OPSD DATA CLEANING PIPELINE")
-print("=" * 80)
+print("-" * 60)
 
-print("\n[STEP 1] Loading Data...")
+print("\nLoading dataset...")
 
 df = pd.read_csv('data/time_series_60min_singleindex.csv')
-print(f"\n Dataset loaded: {len(df):,} rows")
+print(f"Loaded {len(df):,} rows")
 
 df['utc_timestamp'] = pd.to_datetime(df['utc_timestamp'])
 df = df.sort_values('utc_timestamp').reset_index(drop=True)
@@ -27,9 +27,8 @@ print(f"Total Columns: {len(df.columns)}")
 load_cols = [col for col in df.columns if 'load_actual_entsoe' in col and col.startswith(('AT_', 'BE_', 'BG_'))]
 print(f"\nTarget Load Columns: {load_cols}")
 
-print("\n" + "-" * 80)
-print("DATA QUALITY SUMMARY")
-print("-" * 80)
+print("\nData quality check:")
+print("-" * 40)
 
 for col in load_cols:
     country = col.split('_')[0]
@@ -44,24 +43,22 @@ for col in load_cols:
         print(f"  Range: {df[col].min():.2f} to {df[col].max():.2f} MW")
         print(f"  Mean: {df[col].mean():.2f} MW | Std: {df[col].std():.2f} MW")
 
-print("\n" + "-" * 80)
-print("STATISTICAL OVERVIEW")
-print("-" * 80)
+print("\nBasic statistics:")
 print(df[load_cols].describe())
 
-print("\n\n[STEP 2] Handling Missing Values...")
+print("\nHandling missing values...")
 
 for col in load_cols:
     missing_before = df[col].isna().sum()
     if missing_before > 0:
         df[col] = df[col].ffill().bfill()
         missing_after = df[col].isna().sum()
-        print(f"  {col}: {missing_before} → {missing_after} missing values")
+        print(f"  {col}: {missing_before} Ã¢â€ â€™ {missing_after} missing values")
 
 df_clean = df.dropna(subset=load_cols)
 print(f"\n Cleaned dataset: {len(df_clean):,} rows ({len(df_clean)/len(df)*100:.1f}% retained)")
 
-print("\n[STEP 3] Outlier Detection and Handling...")
+print("\nChecking for outliers...")
 
 for col in load_cols:
     Q1 = df_clean[col].quantile(0.25)
@@ -75,7 +72,7 @@ for col in load_cols:
         print(f"  {col}: {outliers} outliers detected (bounds: {lower_bound:.2f} - {upper_bound:.2f})")
         df_clean[col] = df_clean[col].clip(lower=lower_bound, upper=upper_bound)
 
-print("\n[STEP 4] Saving Cleaned Data...")
+print("\nSaving cleaned data...")
 
 os.makedirs('data/preprocessed', exist_ok=True)
 df_clean.to_csv('data/preprocessed/cleaned_full_data.csv', index=False)
@@ -139,7 +136,7 @@ print(" cleaning_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA CLEANING COMPLETE")
-print("=" * 80)
+print("-" * 60)
 print(f"\n Cleaned data: {len(df_clean):,} hours")
 print(" Output: data/preprocessed/cleaned_full_data.csv")
 print(" Visualizations: results/preprocessing/")

@@ -1,4 +1,4 @@
-"""Data Preprocessing - Train/Val/Test Split and Feature Engineering"""
+"""Split data into train/val/test sets"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,9 +10,9 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 print("OPSD DATA PREPROCESSING PIPELINE")
-print("=" * 80)
+print("-" * 60)
 
-print("\n[STEP 1] Loading Cleaned Data...")
+print("\nLoading cleaned data...")
 
 df_clean = pd.read_csv('data/preprocessed/cleaned_full_data.csv')
 df_clean['utc_timestamp'] = pd.to_datetime(df_clean['utc_timestamp'])
@@ -22,7 +22,7 @@ load_cols = [col for col in df_clean.columns if 'load_actual_entsoe' in col and 
 print(f" Loaded: {len(df_clean):,} hours")
 print(f"  Period: {df_clean['utc_timestamp'].min()} to {df_clean['utc_timestamp'].max()}")
 
-print("\n[STEP 2] Creating Train/Val/Test Splits (80/10/10)...")
+print("\nCreating train/val/test splits (80/10/10)...")
 
 total_hours = len(df_clean)
 train_size = int(0.8 * total_hours)
@@ -41,16 +41,16 @@ print(f"  Period: {val_data['utc_timestamp'].min()} to {val_data['utc_timestamp'
 print(f"\nTest set: {len(test_data):,} hours ({len(test_data)/total_hours*100:.1f}%)")
 print(f"  Period: {test_data['utc_timestamp'].min()} to {test_data['utc_timestamp'].max()}")
 
-print("\n[STEP 3] Feature Engineering...")
+print("\nAdding time features...")
 
 for dataset, name in [(train_data, 'train'), (val_data, 'val'), (test_data, 'test')]:
     dataset['hour'] = dataset['utc_timestamp'].dt.hour
     dataset['day_of_week'] = dataset['utc_timestamp'].dt.dayofweek
     dataset['month'] = dataset['utc_timestamp'].dt.month
     dataset['is_weekend'] = (dataset['day_of_week'] >= 5).astype(int)
-    print(f" Added time features to {name} set (hour, day_of_week, month, is_weekend)")
+    print(f"  {name}: hour, day_of_week, month, is_weekend")
 
-print("\n[STEP 4] Saving Preprocessed Datasets...")
+print("\nSaving split datasets...")
 
 train_data.to_csv('data/preprocessed/train_data.csv', index=False)
 val_data.to_csv('data/preprocessed/val_data.csv', index=False)
@@ -60,7 +60,7 @@ print(" train_data.csv")
 print(" val_data.csv")
 print(" test_data.csv")
 
-print("\n[STEP 5] Generating Analysis Visualizations...")
+print("\nGenerating visualizations...")
 
 fig, axes = plt.subplots(3, 1, figsize=(15, 10))
 countries = {'AT': 'Austria', 'BE': 'Belgium', 'BG': 'Bulgaria'}
@@ -142,7 +142,7 @@ print(" split_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA PREPROCESSING COMPLETE")
-print("=" * 80)
+print("-" * 60)
 print(f"\n Train set: {len(train_data):,} hours")
 print(f" Validation set: {len(val_data):,} hours")
 print(f" Test set: {len(test_data):,} hours")

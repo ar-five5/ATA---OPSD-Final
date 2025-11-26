@@ -1,5 +1,5 @@
 """
-Phase 3b: LSTM Model Building with GPU/CUDA Support
+LSTM Model Building with GPU/CUDA Support
 Implements LSTM neural network for comparison with SARIMA models
 """
 
@@ -12,25 +12,25 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
-# PyTorch imports with CUDA support
+# PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase3b_lstm_results', exist_ok=True)
 
-print("="*80)
-print("PHASE 3b: LSTM MODEL BUILDING WITH GPU/CUDA")
-print("="*80)
+print("-" * 60)
+print("LSTM MODEL BUILDING WITH GPU/CUDA")
+print("-" * 60)
 
-# CHECK CUDA AVAILABILITY
-print("\n[1/7] Checking CUDA/GPU availability...")
+# GPU check
+print("\n Checking CUDA/GPU availability...")
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
@@ -41,10 +41,10 @@ if torch.cuda.is_available():
     print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"  CUDA Version: {torch.version.cuda}")
 else:
-    print("⚠ CUDA not available - using CPU (will be slower)")
+    print("ÃƒÂ¢Ã…Â¡Ã‚Â  CUDA not available - using CPU (will be slower)")
 
-# LOAD DATA
-print("\n[2/7] Loading preprocessed data...")
+# Load data
+print("\n Loading preprocessed data...")
 
 # Load train and validation data
 df_train = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -72,17 +72,17 @@ for country, load_col in load_columns.items():
     
     print(f"{country}: Train={len(train_data)} | Dev={len(val_data)} | Test={len(val_data)} hours")
 
-# LSTM DATASET CLASS
+# Dataset class
 
 class TimeSeriesDataset(Dataset):
-    """Dataset for time series with lookback window"""
+    """Time series dataset with sliding window"""
     
     def __init__(self, data, lookback=168, horizon=24):
         """
         Args:
             data: pandas Series or numpy array of time series data
-            lookback: number of hours to look back (default: 168 = 1 week)
-            horizon: number of hours to forecast ahead (default: 24)
+            lookback: lookback period (default: 168 = 1 week)
+            horizon: forecast horizon (default: 24)
         """
         if isinstance(data, np.ndarray):
             self.data = data
@@ -106,10 +106,10 @@ class TimeSeriesDataset(Dataset):
         
         return torch.FloatTensor(x), torch.FloatTensor(y)
 
-# LSTM MODEL ARCHITECTURE
+# Model architecture
 
 class LSTMForecaster(nn.Module):
-    """LSTM model for multi-step time series forecasting"""
+    """LSTM for 24-hour ahead forecasting"""
     
     def __init__(self, input_size=1, hidden_size=128, num_layers=2, output_size=24, dropout=0.2):
         super(LSTMForecaster, self).__init__()
@@ -150,7 +150,7 @@ class LSTMForecaster(nn.Module):
         
         return out
 
-# TRAINING FUNCTION
+# Training function
 
 def train_lstm_model(train_dataset, dev_dataset, device, epochs=50, batch_size=32, lr=0.001):
     """Train LSTM model with early stopping"""
@@ -233,7 +233,7 @@ def train_lstm_model(train_dataset, dev_dataset, device, epochs=50, batch_size=3
     return model, train_losses, dev_losses
 
 # TRAIN MODELS FOR EACH COUNTRY
-print("\n[3/7] Training LSTM models...")
+print("\n Training LSTM models...")
 
 trained_models = {}
 
@@ -278,7 +278,7 @@ for country in countries:
     print(f" Training complete for {country}")
 
 # SAVE MODELS
-print("\n[4/7] Saving trained models...")
+print("\n Saving trained models...")
 
 for country in countries:
     model_path = f'results/phase3b_lstm_results/lstm_model_{country}.pt'
@@ -290,7 +290,7 @@ for country in countries:
     print(f" Saved: {model_path}")
 
 # PLOT TRAINING HISTORY
-print("\n[5/7] Plotting training history...")
+print("\n Plotting training history...")
 
 for country in countries:
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -312,7 +312,7 @@ for country in countries:
     plt.close()
 
 # MODEL SUMMARY
-print("\n[6/7] Creating model summary...")
+print("\n Creating model summary...")
 
 model_summary = {
     'architecture': {
@@ -353,7 +353,7 @@ with open('results/phase3b_lstm_results/model_summary.json', 'w') as f:
 print(" Saved: results/phase3b_lstm_results/model_summary.json")
 
 # PRINT SUMMARY
-print("\n[7/7] Summary of trained models...")
+print("\n Summary of trained models...")
 
 summary_df = pd.DataFrame({
     country: {
@@ -366,12 +366,12 @@ summary_df = pd.DataFrame({
 
 print("\n" + "="*80)
 print("LSTM MODEL SUMMARY")
-print("="*80)
+print("-" * 60)
 print(summary_df.to_string())
 
 print("\n" + "="*80)
 print("PHASE 3b COMPLETE!")
-print("="*80)
+print("-" * 60)
 print(f"\nDevice Used: {device}")
 if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
@@ -384,4 +384,4 @@ print("  5. results/phase3b_lstm_results/training_history_BE.png")
 print("  6. results/phase3b_lstm_results/training_history_BG.png")
 print("  7. results/phase3b_lstm_results/model_summary.json")
 print("\nLSTM models trained and ready for Phase 4b forecasting!")
-print("="*80)
+print("-" * 60)

@@ -17,16 +17,16 @@ import torch
 import torch.nn as nn
 from sklearn.preprocessing import StandardScaler
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase4b_lstm_results', exist_ok=True)
 
-print("="*80)
+print("-" * 60)
 print("PHASE 4b: LSTM FORECASTING AND BACKTESTING")
-print("="*80)
+print("-" * 60)
 
 # CHECK CUDA
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -37,7 +37,7 @@ if torch.cuda.is_available():
 # LSTM MODEL ARCHITECTURE (same as Phase 3b)
 
 class LSTMForecaster(nn.Module):
-    """LSTM model for multi-step time series forecasting"""
+    """LSTM for 24-hour ahead forecasting"""
     
     def __init__(self, input_size=1, hidden_size=128, num_layers=2, output_size=24, dropout=0.2):
         super(LSTMForecaster, self).__init__()
@@ -69,7 +69,7 @@ class LSTMForecaster(nn.Module):
         return out
 
 # LOAD DATA
-print("\n[1/6] Loading dataset...")
+print("\n Loading dataset...")
 
 # Load all preprocessed data for rolling window forecasting
 df_train = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -106,7 +106,7 @@ for country, load_col in load_columns.items():
     print(f"{country}: Train={len(train)} | Val={len(val)} | Test={len(test)} hours")
 
 # LOAD TRAINED MODELS
-print("\n[2/6] Loading trained LSTM models...")
+print("\n Loading trained LSTM models...")
 
 trained_models = {}
 
@@ -147,7 +147,7 @@ def lstm_forecast(model, scaler, history, device, lookback=168):
         scaler: Fitted StandardScaler
         history: Historical data (pandas Series)
         device: torch device (cuda/cpu)
-        lookback: Number of hours to look back
+        lookback: lookback period
     
     Returns:
         forecast: 24-hour forecast (original scale)
@@ -199,7 +199,7 @@ def calculate_mape(actual, forecast):
     return mape
 
 # ROLLING-WINDOW FORECASTING
-print("\n[3/6] Running 24-step rolling-window forecasting...")
+print("\n Running 24-step rolling-window forecasting...")
 
 forecast_results = {}
 lookback = 168  # 1 week
@@ -274,7 +274,7 @@ for country in countries:
     print(f"  RMSE: {rmse:.2f} MW")
 
 # SAVE METRICS
-print("\n[4/6] Saving metrics...")
+print("\n Saving metrics...")
 
 # Summary metrics
 metrics_summary = {
@@ -299,7 +299,7 @@ metrics_df.to_csv('results/phase4b_lstm_results/metrics_comparison.csv')
 print(" Saved: results/phase4b_lstm_results/metrics_comparison.csv")
 
 # VISUALIZATIONS
-print("\n[5/6] Creating visualizations...")
+print("\n Creating visualizations...")
 
 for country in countries:
     test_data = data_splits[country]['test']
@@ -338,7 +338,7 @@ for country in countries:
     plt.close()
 
 # SAVE FORECAST DATA
-print("\n[6/6] Saving forecast data...")
+print("\n Saving forecast data...")
 
 for country in countries:
     test_data = data_splits[country]['test']
@@ -360,7 +360,7 @@ for country in countries:
 # COMPARISON WITH SARIMA
 print("\n" + "="*80)
 print("COMPARING LSTM vs SARIMA PERFORMANCE")
-print("="*80)
+print("-" * 60)
 
 # Load SARIMA metrics
 with open('results/phase4_results/metrics_summary.json', 'r') as f:
@@ -416,7 +416,7 @@ for country in countries:
 # FINAL SUMMARY
 print("\n" + "="*80)
 print("PHASE 4b COMPLETE!")
-print("="*80)
+print("-" * 60)
 print(f"\nDevice Used: {device}")
 if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
@@ -434,4 +434,4 @@ print("  9. results/phase4b_lstm_results/lstm_vs_sarima_comparison.csv")
 
 print("\n" + "="*80)
 print("LSTM forecasting complete with SARIMA comparison!")
-print("="*80)
+print("-" * 60)

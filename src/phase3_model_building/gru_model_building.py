@@ -1,5 +1,5 @@
 """
-Phase 3d: GRU Model Building with GPU/CUDA Support
+GRU Model Building with GPU/CUDA Support
 Implements GRU neural network for comparison with SARIMA and LSTM models
 """
 
@@ -13,25 +13,25 @@ import time
 import warnings
 warnings.filterwarnings('ignore')
 
-# PyTorch imports with CUDA support
+# PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase3d_gru_results', exist_ok=True)
 
-print("="*80)
-print("PHASE 3d: GRU MODEL BUILDING WITH GPU/CUDA")
-print("="*80)
+print("-" * 60)
+print("GRU MODEL BUILDING WITH GPU/CUDA")
+print("-" * 60)
 
-# CHECK CUDA AVAILABILITY
-print("\n[1/7] Checking CUDA/GPU availability...")
+# GPU check
+print("\n Checking CUDA/GPU availability...")
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
@@ -44,8 +44,8 @@ if torch.cuda.is_available():
 else:
     print("[WARNING] CUDA not available - using CPU (will be slower)")
 
-# LOAD DATA
-print("\n[2/7] Loading preprocessed data...")
+# Load data
+print("\n Loading preprocessed data...")
 
 # Load train and validation data
 df_train = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -73,17 +73,17 @@ for country, load_col in load_columns.items():
     
     print(f"{country}: Train={len(train_data)} | Dev={len(val_data)} | Test={len(val_data)} hours")
 
-# GRU DATASET CLASS
+# Dataset class
 
 class TimeSeriesDataset(Dataset):
-    """Dataset for time series with lookback window"""
+    """Time series dataset with sliding window"""
     
     def __init__(self, data, lookback=168, horizon=24, scaler=None):
         """
         Args:
             data: pandas Series or numpy array of time series data
-            lookback: number of hours to look back (default: 168 = 1 week)
-            horizon: number of hours to forecast ahead (default: 24)
+            lookback: lookback period (default: 168 = 1 week)
+            horizon: forecast horizon (default: 24)
             scaler: optional pre-fitted scaler for dev/test sets
         """
         if isinstance(data, np.ndarray):
@@ -112,7 +112,7 @@ class TimeSeriesDataset(Dataset):
         
         return torch.FloatTensor(x), torch.FloatTensor(y)
 
-# GRU MODEL ARCHITECTURE
+# Model architecture
 
 class GRUForecaster(nn.Module):
     """
@@ -167,7 +167,7 @@ class GRUForecaster(nn.Module):
         
         return x
 
-# TRAINING FUNCTION
+# Training function
 
 def train_gru_model(model, train_loader, dev_loader, num_epochs=50, lr=0.001, country=""):
     """Train GRU model with early stopping and learning rate scheduling"""
@@ -265,7 +265,7 @@ def train_gru_model(model, train_loader, dev_loader, num_epochs=50, lr=0.001, co
     }
 
 # TRAIN MODELS FOR ALL COUNTRIES
-print("\n[3/7] Training GRU models...")
+print("\n Training GRU models...")
 
 # Hyperparameters
 LOOKBACK = 168  # 7 days
@@ -351,7 +351,7 @@ for country in countries:
     }
 
 # SAVE TRAINING RESULTS
-print("\n[4/7] Saving training results...")
+print("\n Saving training results...")
 
 # Save JSON summary
 json_results = {}
@@ -369,7 +369,7 @@ with open('results/phase3d_gru_results/training_summary.json', 'w') as f:
 print("[OK] Training summary saved")
 
 # PLOT TRAINING CURVES
-print("\n[5/7] Plotting training curves...")
+print("\n Plotting training curves...")
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 fig.suptitle('GRU Training Curves', fontsize=16, fontweight='bold')
@@ -398,7 +398,7 @@ plt.close()
 print("[OK] Training curves saved")
 
 # TRAINING SUMMARY TABLE
-print("\n[6/7] Creating training summary...")
+print("\n Creating training summary...")
 
 summary_data = []
 for country in countries:
@@ -415,14 +415,14 @@ summary_df.to_csv('results/phase3d_gru_results/training_summary.csv', index=Fals
 
 print("\n" + "="*80)
 print("GRU TRAINING SUMMARY")
-print("="*80)
+print("-" * 60)
 print(summary_df.to_string(index=False))
 
 # FINAL MESSAGE
-print("\n[7/7] Complete!")
+print("\n Complete!")
 print("\n" + "="*80)
 print("PHASE 3d COMPLETE: GRU models trained successfully!")
-print("="*80)
+print("-" * 60)
 print("\nKey advantages of GRU:")
 print("  - Simpler than LSTM (fewer parameters)")
 print("  - Faster training time")

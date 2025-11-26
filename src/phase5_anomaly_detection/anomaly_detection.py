@@ -1,5 +1,5 @@
 """
-Phase 5: Anomaly Detection
+ Anomaly Detection
 Part 1: Residual z-score + CUSUM (unsupervised)
 Part 2: ML-based anomaly classifier (supervised with silver labels)
 
@@ -25,23 +25,23 @@ import warnings
 from scipy import stats
 warnings.filterwarnings('ignore')
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('outputs', exist_ok=True)
 
-print("="*80)
-print("PHASE 5: ANOMALY DETECTION")
-print("="*80)
+print("-" * 60)
+print(" ANOMALY DETECTION")
+print("-" * 60)
 
 # PART 1: RESIDUAL Z-SCORE + CUSUM
 
 countries = ['AT', 'BE', 'BG']
 
 print("\n[Part 1] Residual z-score based anomaly detection")
-print("="*60)
+print("-" * 60)
 
 for country in countries:
     print(f"\nProcessing {country}...")
@@ -180,8 +180,8 @@ for country in countries:
     # Plot 2: Residual z-scores
     ax2 = axes[1]
     ax2.plot(df['timestamp'], df['z_resid'], color='steelblue', linewidth=0.8, alpha=0.8)
-    ax2.axhline(y=3.0, color='red', linestyle='--', linewidth=1, label='Threshold (+3σ)')
-    ax2.axhline(y=-3.0, color='red', linestyle='--', linewidth=1, label='Threshold (-3σ)')
+    ax2.axhline(y=3.0, color='red', linestyle='--', linewidth=1, label='Threshold (+3ÃƒÂÃ†â€™)')
+    ax2.axhline(y=-3.0, color='red', linestyle='--', linewidth=1, label='Threshold (-3ÃƒÂÃ†â€™)')
     ax2.axhline(y=0, color='gray', linestyle='-', linewidth=0.5, alpha=0.5)
     ax2.fill_between(df['timestamp'], -3, 3, alpha=0.1, color='green')
     ax2.set_ylabel('Z-score', fontsize=11)
@@ -209,7 +209,7 @@ for country in countries:
 # SUMMARY STATISTICS
 
 print("\n[Summary] Anomaly Detection Statistics")
-print("="*60)
+print("-" * 60)
 
 summary_stats = {}
 
@@ -235,8 +235,8 @@ print("\n Saved: outputs/anomaly_summary_stats.json")
 
 print("\n" + "="*80)
 print("PART 1 COMPLETE: Z-score and CUSUM anomaly detection")
-print("="*80)
+print("-" * 60)
 print("\nNext steps:")
 print("  - Part 2: ML-based anomaly classifier (silver labels + training)")
 print("  - Review anomaly plots in outputs/ folder")
-print("="*80)
+print("-" * 60)

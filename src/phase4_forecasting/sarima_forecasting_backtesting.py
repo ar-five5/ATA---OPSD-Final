@@ -1,5 +1,5 @@
 """
-Phase 4: Day-Ahead 24-Step Forecasting with Backtesting
+ Day-Ahead 24-Step Forecasting with Backtesting
 Implements rolling-window forecasting and computes evaluation metrics
 """
 
@@ -13,19 +13,19 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase4_results', exist_ok=True)
 
-print("="*80)
-print("PHASE 4: DAY-AHEAD 24-STEP FORECASTING WITH BACKTESTING")
-print("="*80)
+print("-" * 60)
+print(" DAY-AHEAD 24-STEP FORECASTING WITH BACKTESTING")
+print("-" * 60)
 
 # LOAD DATA AND SELECTED MODELS
-print("\n[1/6] Loading data and selected models...")
+print("\n Loading data and selected models...")
 
 # Load preprocessed datasets
 train_df = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -62,7 +62,7 @@ for country in countries:
     print(f"{country}: SARIMA{selected_models[country]['order']} x {selected_models[country]['seasonal_order']}")
 
 # DATA PREPARATION (Same 120-day window as Phase 3)
-print("\n[2/6] Preparing data with 120-day window...")
+print("\n Preparing data with 120-day window...")
 
 data_splits = {}
 for country, load_col in load_columns.items():
@@ -136,7 +136,7 @@ def calculate_pi_coverage(actual, lower_bound, upper_bound):
     return coverage
 
 # ROLLING-WINDOW BACKTESTING
-print("\n[3/6] Performing rolling-window 24-step forecasting on test set...")
+print("\n Performing rolling-window 24-step forecasting on test set...")
 
 forecast_results = {}
 
@@ -228,7 +228,7 @@ for country in countries:
     print(f" Generated {len(forecasts)} hourly forecasts")
 
 # CALCULATE METRICS
-print("\n[4/6] Computing evaluation metrics...")
+print("\n Computing evaluation metrics...")
 
 metrics_summary = {}
 
@@ -257,15 +257,15 @@ for country in countries:
     }
     
     print(f"\n{country} Metrics:")
-    print(f"  MASE: {mase:.4f} {'( Better than naive)' if mase < 1 else '(⚠ Worse than naive)'}")
+    print(f"  MASE: {mase:.4f} {'( Better than naive)' if mase < 1 else '(ÃƒÂ¢Ã…Â¡Ã‚Â  Worse than naive)'}")
     print(f"  sMAPE: {smape:.2f}%")
     print(f"  MAPE: {mape:.2f}%")
     print(f"  RMSE: {rmse:.2f}")
     print(f"  MSE: {mse:.2f}")
-    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'( Good)' if 75 <= pi_coverage <= 85 else '(⚠)'}")
+    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'( Good)' if 75 <= pi_coverage <= 85 else '(ÃƒÂ¢Ã…Â¡Ã‚Â )'}")
 
 # VISUALIZE FORECASTS
-print("\n[5/6] Generating forecast visualizations...")
+print("\n Generating forecast visualizations...")
 
 for country in countries:
     timestamps = forecast_results[country]['timestamps']
@@ -309,7 +309,7 @@ for country in countries:
     plt.close()
 
 # SAVE RESULTS
-print("\n[6/6] Saving forecast results and metrics...")
+print("\n Saving forecast results and metrics...")
 
 # Save metrics summary
 with open('results/phase4_results/metrics_summary.json', 'w') as f:
@@ -337,12 +337,12 @@ for country in countries:
 # Print final summary
 print("\n" + "="*80)
 print("METRICS COMPARISON (PRIMARY: MASE)")
-print("="*80)
+print("-" * 60)
 print(metrics_df.to_string())
 
 print("\n" + "="*80)
 print("PHASE 4 COMPLETE!")
-print("="*80)
+print("-" * 60)
 print("\nGenerated Files:")
 print("  1. results/phase4_results/forecast_AT.png")
 print("  2. results/phase4_results/forecast_BE.png")
@@ -353,4 +353,4 @@ print("  6. results/phase4_results/forecast_data_AT.csv")
 print("  7. results/phase4_results/forecast_data_BE.csv")
 print("  8. results/phase4_results/forecast_data_BG.csv")
 print("\nDay-ahead forecasting and backtesting completed successfully!")
-print("="*80)
+print("-" * 60)

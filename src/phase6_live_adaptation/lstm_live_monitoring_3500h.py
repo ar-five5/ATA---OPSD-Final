@@ -17,9 +17,9 @@ warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-print("="*80)
-print("PHASE 6: LSTM LIVE MONITORING - 3,500 HOUR EVALUATION")
-print("="*80)
+print("-" * 60)
+print(" LSTM LIVE MONITORING - 3,500 HOUR EVALUATION")
+print("-" * 60)
 print("\nStrategy: Online Retraining (Equalized with SARIMA)")
 print("  - Refit frequency: Every 336 hours (2 weeks)")
 print("  - Minimum history: 60 days (1,440 hours)")
@@ -139,7 +139,7 @@ def calculate_rmse(actual, forecast):
 
 # LOAD DATA
 
-print("\n[1/4] Loading dataset...")
+print("\n Loading dataset...")
 
 df = pd.read_csv('data/time_series_60min_singleindex.csv', index_col=0, parse_dates=True)
 
@@ -154,7 +154,7 @@ for country, col in LOAD_COLUMNS.items():
 
 # RUN SIMULATION
 
-print("\n[2/4] Running live monitoring simulation...")
+print("\n Running live monitoring simulation...")
 
 all_results = {}
 
@@ -238,7 +238,7 @@ for country in COUNTRIES:
 
 # SAVE RESULTS
 
-print("\n[3/4] Saving results...")
+print("\n Saving results...")
 
 os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 
@@ -266,7 +266,7 @@ print(" Saved lstm_simulation_summary.json")
 
 # VISUALIZATIONS
 
-print("\n[4/4] Creating visualizations...")
+print("\n Creating visualizations...")
 
 # Performance evolution
 fig, axes = plt.subplots(3, 1, figsize=(14, 10))
@@ -296,7 +296,7 @@ plt.close()
 
 print("\n" + "="*80)
 print("LSTM LIVE MONITORING COMPLETE")
-print("="*80)
+print("-" * 60)
 for country in COUNTRIES:
     print(f"{country}: MAPE {summary[country]['avg_mape']:.2f}% | MASE {summary[country]['avg_mase']:.4f} | Refits {summary[country]['num_refits']}")
-print("="*80)
+print("-" * 60)

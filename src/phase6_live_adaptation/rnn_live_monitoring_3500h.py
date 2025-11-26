@@ -16,9 +16,9 @@ warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-print("="*80)
-print("PHASE 6: VANILLA RNN LIVE MONITORING - 3,500 HOUR EVALUATION")
-print("="*80)
+print("-" * 60)
+print(" VANILLA RNN LIVE MONITORING - 3,500 HOUR EVALUATION")
+print("-" * 60)
 print("\nStrategy: Online Retraining (Equalized with SARIMA)")
 print("  - Refit frequency: Every 336 hours (2 weeks)")
 print("  - Minimum history: 60 days (1,440 hours)")
@@ -137,7 +137,7 @@ def calculate_rmse(actual, forecast):
 
 # MAIN SIMULATION
 
-print("\n[1/4] Loading dataset...")
+print("\n Loading dataset...")
 df = pd.read_csv('data/time_series_60min_singleindex.csv')
 df['utc_timestamp'] = pd.to_datetime(df['utc_timestamp'])
 df = df.sort_values('utc_timestamp').reset_index(drop=True)
@@ -145,14 +145,14 @@ df = df.sort_values('utc_timestamp').reset_index(drop=True)
 for country in COUNTRIES:
     print(f"{country}: {df[LOAD_COLUMNS[country]].notna().sum()} hours available")
 
-print("\n[2/4] Running live monitoring simulation...")
+print("\n Running live monitoring simulation...")
 
 all_results = {}
 
 for country in COUNTRIES:
     print("\n" + "="*60)
     print(f"COUNTRY: {country}")
-    print("="*60)
+    print("-" * 60)
     
     # Extract country data
     country_df = df[['utc_timestamp', LOAD_COLUMNS[country]]].copy()
@@ -237,7 +237,7 @@ for country in COUNTRIES:
 
 # SAVE RESULTS
 
-print("\n[3/4] Saving results...")
+print("\n Saving results...")
 
 os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 
@@ -265,7 +265,7 @@ print(" Saved rnn_simulation_summary.json")
 
 # VISUALIZATIONS
 
-print("\n[4/4] Creating visualizations...")
+print("\n Creating visualizations...")
 
 # Performance evolution
 fig, axes = plt.subplots(3, 1, figsize=(14, 10))
@@ -295,6 +295,6 @@ plt.close()
 
 print("\n" + "="*80)
 print("VANILLA RNN LIVE MONITORING COMPLETE")
-print("="*80)
+print("-" * 60)
 for country in COUNTRIES:
     print(f"{country}: MAPE {summary[country]['avg_mape']:.2f}% | MASE {summary[country]['avg_mase']:.4f} | Refits {summary[country]['num_refits']}")

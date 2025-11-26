@@ -26,20 +26,20 @@ from sklearn.preprocessing import StandardScaler
 import lightgbm as lgb
 warnings.filterwarnings('ignore')
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-print("="*80)
+print("-" * 60)
 print("PHASE 5b: ML-BASED ANOMALY CLASSIFIER")
-print("="*80)
+print("-" * 60)
 
 countries = ['AT', 'BE', 'BG']
 
 # PART 1: CREATE SILVER LABELS
 
 print("\n[Step 1/5] Creating silver labels...")
-print("="*60)
+print("-" * 60)
 
 all_labeled_data = []
 
@@ -96,7 +96,7 @@ print(f"  - Negative: {(df_all_labeled['silver_label'] == 0).sum()}")
 # PART 2: HUMAN VERIFICATION SAMPLING
 
 print("\n[Step 2/5] Sampling for human verification...")
-print("="*60)
+print("-" * 60)
 
 verification_samples = []
 
@@ -138,7 +138,7 @@ print(f"\n Saved: outputs/anomaly_labels_verified.csv ({len(df_verification)} sa
 # PART 3: FEATURE ENGINEERING
 
 print("\n[Step 3/5] Engineering features for ML classifier...")
-print("="*60)
+print("-" * 60)
 
 def create_features(df):
     """Create features for anomaly classification"""
@@ -198,7 +198,7 @@ print(f" Training samples after removing NaN: {len(df_features)}")
 # PART 4: TRAIN ML CLASSIFIER
 
 print("\n[Step 4/5] Training ML classifiers...")
-print("="*60)
+print("-" * 60)
 
 # Prepare data
 X = df_features.drop(['silver_label', 'country'], axis=1)
@@ -223,13 +223,13 @@ n_positive_train = y_train.sum()
 n_positive_test = y_test.sum()
 
 if n_positive_train == 0 or n_positive_test == 0:
-    print(f"\n⚠️  WARNING: Insufficient positive samples in train or test split")
+    print(f"\nÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â  WARNING: Insufficient positive samples in train or test split")
     print(f"   Train positive: {n_positive_train}, Test positive: {n_positive_test}")
     print(f"   Using stratified sampling may not work. Adjusting strategy...")
     
     # If we have very few positives, use all data for evaluation
     if (n_positive_train + n_positive_test) < 5:
-        print("\n❌ INSUFFICIENT POSITIVE SAMPLES FOR RELIABLE CLASSIFIER TRAINING")
+        print("\nÃƒÂ¢Ã‚ÂÃ…â€™ INSUFFICIENT POSITIVE SAMPLES FOR RELIABLE CLASSIFIER TRAINING")
         print("   Skipping ML classifier training due to extreme class imbalance.")
         print(f"\n   Anomaly Detection Summary:")
         print(f"   - Total samples: {len(df_verified)}")
@@ -287,7 +287,7 @@ else:
     thresh_lr, prec_lr, rec_lr, f1_lr = (0.5, 0, 0, 0)
 
 print(f"  PR-AUC: {pr_auc_lr:.4f}")
-print(f"  F1 at P≥0.80: {f1_lr:.4f} (Precision: {prec_lr:.2f}, Recall: {rec_lr:.2f})")
+print(f"  F1 at PÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥0.80: {f1_lr:.4f} (Precision: {prec_lr:.2f}, Recall: {rec_lr:.2f})")
 
 # Model 2: LightGBM
 
@@ -329,12 +329,12 @@ else:
     thresh_lgb, prec_lgb, rec_lgb, f1_lgb = (0.5, 0, 0, 0)
 
 print(f"  PR-AUC: {pr_auc_lgb:.4f}")
-print(f"  F1 at P≥0.80: {f1_lgb:.4f} (Precision: {prec_lgb:.2f}, Recall: {rec_lgb:.2f})")
+print(f"  F1 at PÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥0.80: {f1_lgb:.4f} (Precision: {prec_lgb:.2f}, Recall: {rec_lgb:.2f})")
 
 # PART 5: SAVE EVALUATION RESULTS
 
 print("\n[Step 5/5] Saving evaluation results...")
-print("="*60)
+print("-" * 60)
 
 evaluation_results = {
     "dataset_stats": {
@@ -406,15 +406,15 @@ print(" Saved: outputs/anomaly_ml_pr_curves.png")
 
 print("\n" + "="*80)
 print("PHASE 5b COMPLETE: ML-BASED ANOMALY CLASSIFIER")
-print("="*80)
+print("-" * 60)
 print(f"\n Silver labels created and saved")
 print(f" Human verification samples: {len(df_verification)} ({len(df_verification)//3} per country)")
 print(f" ML models trained and evaluated")
 print(f"\nBest Model: {'LightGBM' if pr_auc_lgb > pr_auc_lr else 'Logistic Regression'}")
 print(f"  PR-AUC: {max(pr_auc_lr, pr_auc_lgb):.4f}")
-print(f"  F1 @ P≥0.80: {max(f1_lr, f1_lgb):.4f}")
+print(f"  F1 @ PÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥0.80: {max(f1_lr, f1_lgb):.4f}")
 print("\nFiles saved:")
 print("  - outputs/anomaly_labels_verified.csv")
 print("  - outputs/anomaly_ml_eval.json")
 print("  - outputs/anomaly_ml_pr_curves.png")
-print("="*80)
+print("-" * 60)

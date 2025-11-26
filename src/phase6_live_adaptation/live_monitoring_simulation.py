@@ -1,9 +1,9 @@
 """
-Phase 6: Live Monitoring & Online Adaptation Simulation
+ Live Monitoring & Online Adaptation Simulation
 Simulates a live data feed with rolling SARIMA refit strategy
 
 Assignment Requirements:
-- Simulate ≥2,000 hours of streaming data
+- Simulate ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 hours of streaming data
 - Implement ONE online adaptation strategy (Rolling SARIMA refit chosen)
 - Track performance metrics over time
 - Detect performance drift
@@ -27,21 +27,21 @@ import warnings
 from datetime import datetime, timedelta
 warnings.filterwarnings('ignore')
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 
-print("="*80)
-print("PHASE 6: LIVE MONITORING & ONLINE ADAPTATION SIMULATION")
-print("="*80)
+print("-" * 60)
+print(" LIVE MONITORING & ONLINE ADAPTATION SIMULATION")
+print("-" * 60)
 print("\nStrategy: Rolling SARIMA Refit")
 print("  - Refit frequency: Every 168 hours (1 week)")
 print("  - Minimum history: 60 days (1,440 hours)")
 print("  - Forecast horizon: 24 hours ahead")
-print("  - Simulation period: ≥2,000 hours")
+print("  - Simulation period: ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 hours")
 
 # CONFIGURATION
 
@@ -96,7 +96,7 @@ def calculate_rmse(actual, forecast):
 
 # LOAD DATA
 
-print("\n[1/6] Loading dataset...")
+print("\n Loading dataset...")
 
 df = pd.read_csv('data/time_series_60min_singleindex.csv', index_col=0, parse_dates=True)
 
@@ -104,8 +104,8 @@ print(f"Dataset: {len(df):,} hours ({df.index[0]} to {df.index[-1]})")
 
 # PREPARE SIMULATION DATA
 
-print("\n[2/6] Preparing simulation data...")
-print(f"  - Simulation period: {SIMULATION_HOURS:,} hours (≥2,000 required)")
+print("\n Preparing simulation data...")
+print(f"  - Simulation period: {SIMULATION_HOURS:,} hours (ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 required)")
 print(f"  - Refit frequency: Every {REFIT_FREQUENCY} hours")
 print(f"  - Minimum history: {MIN_HISTORY} hours ({MIN_HISTORY/24:.0f} days)")
 
@@ -128,7 +128,7 @@ for country, load_col in LOAD_COLUMNS.items():
     history_start_idx = start_idx - MIN_HISTORY
     
     if history_start_idx < 0:
-        print(f"⚠️  Warning: Insufficient history for {country}. Adjusting simulation start.")
+        print(f"ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â  Warning: Insufficient history for {country}. Adjusting simulation start.")
         history_start_idx = 0
         start_idx = MIN_HISTORY
         end_idx = start_idx + SIMULATION_HOURS
@@ -152,7 +152,7 @@ for country, load_col in LOAD_COLUMNS.items():
 
 # LIVE SIMULATION WITH ROLLING SARIMA REFIT
 
-print("\n[3/6] Running live simulation with rolling SARIMA refit...")
+print("\n Running live simulation with rolling SARIMA refit...")
 
 simulation_results = {}
 
@@ -196,7 +196,7 @@ for country in COUNTRIES:
         hours_since_refit = 0
         print(" Initial model trained")
     except Exception as e:
-        print(f"❌ Error training initial model: {e}")
+        print(f"ÃƒÂ¢Ã‚ÂÃ…â€™ Error training initial model: {e}")
         continue
     
     # Simulate hour-by-hour
@@ -228,7 +228,7 @@ for country in COUNTRIES:
             except:
                 # If refit fails, keep using old model
                 refit_this_hour = False
-                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}: ⚠ Refit failed, using existing model")
+                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}: ÃƒÂ¢Ã…Â¡Ã‚Â  Refit failed, using existing model")
         
         # Generate forecasts
         try:
@@ -306,7 +306,7 @@ for country in COUNTRIES:
 
 # SAVE RESULTS
 
-print("\n[4/6] Saving simulation results...")
+print("\n Saving simulation results...")
 
 for country, results_df in simulation_results.items():
     output_file = f'results/phase6_live_adaptation/{country}_live_simulation.csv'
@@ -342,7 +342,7 @@ print(f" Saved: results/phase6_live_adaptation/simulation_summary.json")
 
 # VISUALIZATIONS
 
-print("\n[5/6] Creating visualizations...")
+print("\n Creating visualizations...")
 
 for country, results_df in simulation_results.items():
     fig, axes = plt.subplots(4, 1, figsize=(16, 12), sharex=True)
@@ -445,11 +445,11 @@ print(f" Saved: results/phase6_live_adaptation/comparison_all_countries.png")
 
 # SUMMARY REPORT
 
-print("\n[6/6] Generating summary report...")
+print("\n Generating summary report...")
 
 print("\n" + "="*80)
 print("LIVE MONITORING SIMULATION SUMMARY")
-print("="*80)
+print("-" * 60)
 
 print(f"\nConfiguration:")
 print(f"  - Simulation period: {SIMULATION_HOURS} hours ({SIMULATION_HOURS/24:.0f} days)")
@@ -468,7 +468,7 @@ for country in COUNTRIES:
 
 print("\n" + "="*80)
 print("PHASE 6 COMPLETE: Live monitoring simulation finished successfully!")
-print("="*80)
+print("-" * 60)
 
 print("\nOutputs saved to: results/phase6_live_adaptation/")
 print("  - CSV files with hourly forecasts and metrics")

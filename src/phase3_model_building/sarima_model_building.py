@@ -1,5 +1,5 @@
 """
-Phase 3: Model Building - SARIMA Grid Search with AIC/BIC (Parallel)
+Model Building - SARIMA Grid Search with AIC/BIC (Parallel)
 Implements optimal SARIMA parameter selection for day-ahead electricity load forecasting
 Uses parallel processing for faster grid search
 """
@@ -18,11 +18,11 @@ from joblib import Parallel, delayed
 import gc  # Garbage collector for memory management
 warnings.filterwarnings('ignore')
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('phase3_results', exist_ok=True)
 
 # Determine number of CPU cores
@@ -84,12 +84,12 @@ def fit_sarima_model(train_data, dev_data, p, d, q, P, D, Q, s, country):
             'error': str(e)
         }
 
-print("="*80)
-print("PHASE 3: MODEL BUILDING - SARIMA GRID SEARCH")
-print("="*80)
+print("-" * 60)
+print("MODEL BUILDING - SARIMA GRID SEARCH")
+print("-" * 60)
 
 # Load dataset
-print("\n[1/5] Loading dataset...")
+print("\n Loading dataset...")
 df = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
 df = df.set_index('utc_timestamp')
 
@@ -106,8 +106,8 @@ for country in countries:
 
 print(f"Load columns: {load_columns}")
 
-# TASK 1: Load preprocessed train and validation data
-print("\n[2/5] Loading train and validation data...")
+# Load preprocessed train and validation data
+print("\n Loading train and validation data...")
 
 # Load validation data for dev set
 df_val = pd.read_csv('data/preprocessed/val_data.csv', parse_dates=['utc_timestamp'])
@@ -143,13 +143,13 @@ for country, load_col in load_columns.items():
     print(f"  Dev:   {len(dev):,} hours ({len(dev)/n*100:.1f}%) - {data_splits[country]['dev_period']}")
     print(f"  Test:  {len(test):,} hours ({len(test)/n*100:.1f}%) - {data_splits[country]['test_period']}")
 
-# TASK 2: SARIMA GRID SEARCH WITH AIC/BIC + DEV SET VALIDATION
-print("\n[3/5] Performing SARIMA grid search with AIC/BIC + Dev Set Validation...")
+# SARIMA GRID SEARCH WITH AIC/BIC + DEV SET VALIDATION
+print("\n Performing SARIMA grid search with AIC/BIC + Dev Set Validation...")
 print("Grid parameters:")
-print("  - (p,q) ∈ {0,1,2}")
-print("  - d ∈ {0,1}")
-print("  - (P,Q) ∈ {0,1}")
-print("  - D ∈ {0,1}")
+print("  - (p,q) ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1,2}")
+print("  - d ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
+print("  - (P,Q) ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
+print("  - D ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
 print("  - s = 24 (daily seasonality)")
 print("Note: Models trained on train set, validated on dev set")
 
@@ -279,7 +279,7 @@ for country, load_col in load_columns.items():
                     print(f"  Failed: ({result['p']},{result['d']},{result['q']})({result['P']},{result['D']},{result['Q']})")
             
         except KeyboardInterrupt:
-            print("\nKeyboardInterrupt received — saving progress and exiting gracefully.")
+            print("\nKeyboardInterrupt received ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â saving progress and exiting gracefully.")
             # Reload from partial CSV to get latest state
             try:
                 prev = pd.read_csv(partial_csv)
@@ -382,8 +382,8 @@ for country, load_col in load_columns.items():
             'best_bic': None
         }
 
-# TASK 3: VISUALIZE GRID SEARCH RESULTS
-print("\n[4/5] Generating grid search visualization...")
+# VISUALIZE GRID SEARCH RESULTS
+print("\n Generating grid search visualization...")
 
 for country in countries:
     # Skip countries not yet processed
@@ -442,7 +442,7 @@ for country in countries:
     plt.close()
 
 # TASK 4: DOCUMENT MODEL ORDERS
-print("\n[5/5] Documenting selected model orders...")
+print("\n Documenting selected model orders...")
 
 # Create summary document
 model_selection_summary = {
@@ -526,20 +526,20 @@ if summary_data:
     summary_df.to_csv('phase3_results/selected_models.csv', index=False)
     print(" Saved: phase3_results/selected_models.csv")
 else:
-    print("⚠ No completed countries; selected_models.csv not created yet")
+    print("ÃƒÂ¢Ã…Â¡Ã‚Â  No completed countries; selected_models.csv not created yet")
 
 # Print summary
 print("\n" + "="*80)
 print("MODEL SELECTION SUMMARY (Based on BIC)")
-print("="*80)
+print("-" * 60)
 if summary_data:
     print(summary_df.to_string(index=False))
 else:
-    print("No results yet — grid search incomplete or interrupted.")
+    print("No results yet ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â grid search incomplete or interrupted.")
 
 print("\n" + "="*80)
 print("PHASE 3 COMPLETE!")
-print("="*80)
+print("-" * 60)
 print("\nGenerated Files:")
 print("  1. phase3_results/grid_search_AT.png")
 print("  2. phase3_results/grid_search_BE.png")
@@ -547,5 +547,5 @@ print("  3. phase3_results/grid_search_BG.png")
 print("  4. phase3_results/model_selection_summary.json")
 print("  5. phase3_results/selected_models.csv")
 print("\nModel Building Phase completed successfully!")
-print("Ready for Phase 4: Day-ahead 24-step forecasting with backtesting")
-print("="*80)
+print("Ready for Day-ahead 24-step forecasting with backtesting")
+print("-" * 60)

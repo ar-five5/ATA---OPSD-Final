@@ -23,9 +23,9 @@ import os
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.makedirs(os.path.join(base_dir, 'results/phase4c_gru_results'), exist_ok=True)
 
-print("="*80)
+print("-" * 60)
 print("PHASE 4c: GRU FORECASTING AND BACKTESTING")
-print("="*80)
+print("-" * 60)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"\nUsing device: {device}")
@@ -33,7 +33,7 @@ print(f"\nUsing device: {device}")
 # GRU MODEL ARCHITECTURE
 
 class GRUForecaster(nn.Module):
-    """GRU model for multi-step time series forecasting"""
+    """GRU for 24-hour ahead forecasting"""
     
     def __init__(self, input_size=1, hidden_size=128, num_layers=2, output_size=24, dropout=0.2):
         super(GRUForecaster, self).__init__()
@@ -65,7 +65,7 @@ class GRUForecaster(nn.Module):
         return out
 
 # LOAD DATA
-print("\n[1/6] Loading dataset...")
+print("\n Loading dataset...")
 
 import os
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -104,7 +104,7 @@ for country, load_col in load_columns.items():
     print(f"{country}: Test set = {len(test)} hours")
 
 # LOAD TRAINED MODELS
-print("\n[2/6] Loading trained GRU models...")
+print("\n Loading trained GRU models...")
 
 trained_models = {}
 
@@ -207,7 +207,7 @@ def calculate_all_metrics(y_true, y_pred, y_train):
     }
 
 # PERFORM FORECASTING
-print("\n[3/6] Performing rolling forecasts...")
+print("\n Performing rolling forecasts...")
 
 all_results = {}
 all_metrics = {}
@@ -241,7 +241,7 @@ for country in countries:
     print(f"   MASE: {metrics['MASE']:.4f} | MAPE: {metrics['MAPE_%']:.2f}%")
 
 # SAVE RESULTS
-print("\n[4/6] Saving forecast results...")
+print("\n Saving forecast results...")
 
 # Save metrics
 metrics_df = pd.DataFrame(all_metrics).T
@@ -259,7 +259,7 @@ for country in countries:
     print(f" Saved {country} forecasts")
 
 # VISUALIZATIONS
-print("\n[5/6] Creating visualizations...")
+print("\n Creating visualizations...")
 
 # Forecast plots
 fig, axes = plt.subplots(3, 1, figsize=(14, 10))
@@ -305,9 +305,9 @@ plt.close()
 # SUMMARY
 print("\n" + "="*80)
 print("PHASE 4c SUMMARY: GRU FORECASTING RESULTS")
-print("="*80)
+print("-" * 60)
 print("\nPerformance Metrics:")
 print(metrics_df.to_string())
 
 print("\n All results saved to results/phase4c_gru_results/")
-print("="*80)
+print("-" * 60)

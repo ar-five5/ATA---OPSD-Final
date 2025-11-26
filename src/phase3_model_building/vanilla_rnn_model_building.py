@@ -1,5 +1,5 @@
 """
-Phase 3e: Vanilla/Classic RNN Model Building with GPU/CUDA Support
+Vanilla/Classic RNN Model Building with GPU/CUDA Support
 Implements classic RNN neural network for comparison with SARIMA, LSTM, and GRU models
 """
 
@@ -13,25 +13,25 @@ import time
 import warnings
 warnings.filterwarnings('ignore')
 
-# PyTorch imports with CUDA support
+# PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# Set style
+# plotting style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
-# Create output directory
+# output dir
 os.makedirs('results/phase3e_vanilla_rnn_results', exist_ok=True)
 
-print("="*80)
-print("PHASE 3e: VANILLA/CLASSIC RNN MODEL BUILDING WITH GPU/CUDA")
-print("="*80)
+print("-" * 60)
+print("VANILLA/CLASSIC RNN MODEL BUILDING WITH GPU/CUDA")
+print("-" * 60)
 
-# CHECK CUDA AVAILABILITY
-print("\n[1/7] Checking CUDA/GPU availability...")
+# GPU check
+print("\n Checking CUDA/GPU availability...")
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
@@ -42,10 +42,10 @@ if torch.cuda.is_available():
     print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"  CUDA Version: {torch.version.cuda}")
 else:
-    print("⚠ CUDA not available - using CPU (will be slower)")
+    print("ÃƒÂ¢Ã…Â¡Ã‚Â  CUDA not available - using CPU (will be slower)")
 
-# LOAD DATA
-print("\n[2/7] Loading preprocessed data...")
+# Load data
+print("\n Loading preprocessed data...")
 
 # Load train and validation data
 df_train = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -73,17 +73,17 @@ for country, load_col in load_columns.items():
     
     print(f"{country}: Train={len(train_data)} | Dev={len(val_data)} | Test={len(val_data)} hours")
 
-# VANILLA RNN DATASET CLASS
+# Dataset class
 
 class TimeSeriesDataset(Dataset):
-    """Dataset for time series with lookback window"""
+    """Time series dataset with sliding window"""
     
     def __init__(self, data, lookback=168, horizon=24, scaler=None):
         """
         Args:
             data: pandas Series or numpy array of time series data
-            lookback: number of hours to look back (default: 168 = 1 week)
-            horizon: number of hours to forecast ahead (default: 24)
+            lookback: lookback period (default: 168 = 1 week)
+            horizon: forecast horizon (default: 24)
             scaler: optional pre-fitted scaler for dev/test sets
         """
         if isinstance(data, np.ndarray):
@@ -112,7 +112,7 @@ class TimeSeriesDataset(Dataset):
         
         return torch.FloatTensor(x), torch.FloatTensor(y)
 
-# VANILLA RNN MODEL ARCHITECTURE
+# Model architecture
 
 class VanillaRNNForecaster(nn.Module):
     """
@@ -173,7 +173,7 @@ class VanillaRNNForecaster(nn.Module):
         
         return x
 
-# TRAINING FUNCTION
+# Training function
 
 def train_vanilla_rnn_model(model, train_loader, dev_loader, num_epochs=50, lr=0.001, country=""):
     """Train Vanilla RNN model with gradient clipping to prevent exploding gradients"""
@@ -279,7 +279,7 @@ def train_vanilla_rnn_model(model, train_loader, dev_loader, num_epochs=50, lr=0
     }
 
 # TRAIN MODELS FOR ALL COUNTRIES
-print("\n[3/7] Training Vanilla RNN models...")
+print("\n Training Vanilla RNN models...")
 
 # Hyperparameters
 LOOKBACK = 168  # 7 days
@@ -365,7 +365,7 @@ for country in countries:
     }
 
 # SAVE TRAINING RESULTS
-print("\n[4/7] Saving training results...")
+print("\n Saving training results...")
 
 # Save JSON summary
 json_results = {}
@@ -383,7 +383,7 @@ with open('results/phase3e_vanilla_rnn_results/training_summary.json', 'w') as f
 print(" Training summary saved")
 
 # PLOT TRAINING CURVES
-print("\n[5/7] Plotting training curves...")
+print("\n Plotting training curves...")
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 fig.suptitle('Vanilla RNN Training Curves', fontsize=16, fontweight='bold')
@@ -412,7 +412,7 @@ plt.close()
 print(" Training curves saved")
 
 # TRAINING SUMMARY TABLE
-print("\n[6/7] Creating training summary...")
+print("\n Creating training summary...")
 
 summary_data = []
 for country in countries:
@@ -429,18 +429,18 @@ summary_df.to_csv('results/phase3e_vanilla_rnn_results/training_summary.csv', in
 
 print("\n" + "="*80)
 print("VANILLA RNN TRAINING SUMMARY")
-print("="*80)
+print("-" * 60)
 print(summary_df.to_string(index=False))
 
 # FINAL MESSAGE
-print("\n[7/7] Complete!")
+print("\n Complete!")
 print("\n" + "="*80)
 print("PHASE 3e COMPLETE: Vanilla RNN models trained successfully!")
-print("="*80)
+print("-" * 60)
 print("\nVanilla RNN characteristics:")
-print("  • Simplest recurrent architecture")
-print("  • No gating mechanisms (unlike LSTM/GRU)")
-print("  • Prone to vanishing/exploding gradients")
-print("  • Good baseline for comparison")
-print("  • Gradient clipping used to stabilize training")
+print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Simplest recurrent architecture")
+print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ No gating mechanisms (unlike LSTM/GRU)")
+print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Prone to vanishing/exploding gradients")
+print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Good baseline for comparison")
+print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Gradient clipping used to stabilize training")
 print("\nNext step: Run phase4e_vanilla_rnn_forecasting.py for rolling window forecasting")
