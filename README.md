@@ -85,32 +85,43 @@ ATA/
 │   │   ├── gru_model_building.py
 │   │   └── vanilla_rnn_model_building.py
 │   ├── phase4_forecasting/           # Phase 4: Forecasting scripts
+│   │   ├── sarima_forecasting_backtesting.py
+│   │   ├── lstm_forecasting_backtesting.py
+│   │   ├── gru_forecasting_backtesting.py
+│   │   └── vanilla_rnn_forecasting_backtesting.py
 │   ├── phase5_anomaly_detection/     # Phase 5: Anomaly detection
+│   │   ├── anomaly_detection.py
+│   │   └── ml_anomaly_classifier.py
 │   └── phase6_live_adaptation/       # Phase 6: Live monitoring
+│       ├── live_monitoring_simulation.py
+│       ├── lstm_live_monitoring_3500h.py
+│       ├── gru_live_monitoring_3500h.py
+│       └── rnn_live_monitoring_3500h.py
 │
 ├── data/                             # Datasets
 │   ├── time_series_60min_singleindex.csv  # Raw OPSD data (50,401 hrs)
-│   └── preprocessed/                 # Train/val/test splits
+│   └── preprocessed/                 # Train/val/test splits (3 files)
 │
-├── results/                          # All outputs
+├── results/                          # All model outputs (organized)
+│   ├── models/                       # Trained model checkpoints
 │   ├── preprocessing/                # Cleaning visualizations (7 files)
-│   ├── phase3d_gru_results/          # GRU training (3 files)
-│   ├── phase3e_vanilla_rnn_results/  # RNN training (3 files)
+│   ├── phase3b_lstm_results/         # LSTM training (4 files)
+│   ├── phase3d_gru_results/          # GRU training (6 files)
+│   ├── phase3e_vanilla_rnn_results/  # RNN training (6 files)
 │   ├── phase4_results/               # SARIMA forecasts (8 files)
-│   ├── phase4b_lstm_results/         # LSTM forecasts (9 files)
+│   ├── phase4b_lstm_results/         # LSTM forecasts (10 files)
 │   ├── phase4c_gru_results/          # GRU forecasts (6 files)
 │   ├── phase4d_rnn_results/          # RNN forecasts (6 files)
-│   └── phase6_live_adaptation/       # Live simulation (16 files)
+│   └── phase6_live_adaptation/       # Live simulation (22 files)
 │
 ├── outputs/                          # Anomaly detection results (10 files)
 ├── phase3_results/                   # SARIMA grid search (5 files)
-├── phase3b_lstm_results/             # LSTM training history (4 files)
-├── phase4_results/                   # Root-level SARIMA results
-├── phase4b_lstm_results/             # Root-level LSTM results
 ├── docs/                             # Documentation
-├── dashboard.py                      # Streamlit dashboard
+├── dashboard.py                      # Streamlit interactive dashboard
 └── README.md                         # This file
 ```
+
+> **Note:** All result files are now organized in the `results/` directory for better project structure.
 
 ## Phases Completed
 
@@ -142,13 +153,13 @@ ATA/
 - **GRU:** 2 layers, 64 units, batch size 16, 159K params
 - **Vanilla RNN:** 3 layers, 128 units, batch size 32
 - All models trained with CUDA acceleration on RTX 4050
-- **Output:** Trained models in `results/models/`
+- **Output:** Trained models and histories in `results/phase3b_lstm_results/`, `results/phase3d_gru_results/`, `results/phase3e_vanilla_rnn_results/`
 
 ### ✅ Phase 4: Forecasting & Backtesting
 #### SARIMA Forecasting
 - 12 rolling 24-step forecasts on test set
 - Evaluation metrics: MASE, sMAPE, MAPE, RMSE, MSE, PI Coverage
-- **Output:** 8 files in `phase4_results/`
+- **Output:** 8 files in `results/phase4_results/`
 - **Performance:**
   - AT: MAPE 7.14%, MASE 0.96, 75% PI coverage
   - BE: MAPE 5.58%, MASE 0.96, 71% PI coverage
@@ -168,7 +179,7 @@ ATA/
   - AT: MASE 0.46
   - BE: MASE 0.69
   - BG: MASE 1.11
-- **Output:** Results in `phase4b_lstm_results/`, `results/phase4c_gru_results/`, `results/phase4d_rnn_results/`
+- **Output:** Results in `results/phase4b_lstm_results/` (10 files), `results/phase4c_gru_results/` (6 files), `results/phase4d_rnn_results/` (6 files)
 
 ### ✅ Phase 5: Anomaly Detection
 #### Part 1: Statistical Methods
@@ -196,7 +207,8 @@ ATA/
 - 3,500 hours simulation (146 days) - 75% above minimum
 - Rolling SARIMA refit every 336 hours (2 weeks)
 - Expanding window training with minimum 1,440 hours history
-- **Output:** 16 files in `results/phase6_live_adaptation/`
+- **All 4 models** tested: SARIMA, LSTM, GRU, Vanilla RNN
+- **Output:** 22 files in `results/phase6_live_adaptation/`
 - **Performance:**
   - AT: MAPE 15.73%, MASE 2.11, 10 refits
   - BE: MAPE 10.16%, MASE 1.91, 10 refits
