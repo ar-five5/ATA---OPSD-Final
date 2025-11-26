@@ -253,19 +253,19 @@ if section == "📊 Overview":
     
     with col1:
         st.markdown("**Training Data**")
-        st.write("• 2,304 hours (96 days)")
+        st.write("• 40,320 hours (1,680 days)")
         st.write("• 80% of total data")
         st.write("• Used for model training")
     
     with col2:
         st.markdown("**Validation Data**")
-        st.write("• 288 hours (12 days)")
+        st.write("• 5,040 hours (210 days)")
         st.write("• 10% of total data")
         st.write("• Used for hyperparameter tuning")
     
     with col3:
         st.markdown("**Test Data**")
-        st.write("• 288 hours (12 days)")
+        st.write("• 5,041 hours (210 days)")
         st.write("• 10% of total data")
         st.write("• Used for final evaluation")
 
