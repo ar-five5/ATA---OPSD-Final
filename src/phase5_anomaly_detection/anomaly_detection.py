@@ -60,7 +60,7 @@ for country in countries:
     data_1000h = data.iloc[-1000:].copy()
     
     # Load SARIMA forecast results from Phase 4 (test set: Sept 19-30, 2020)
-    df_forecast = pd.read_csv(f'phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
+    df_forecast = pd.read_csv(f'results/phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
     
     # Create dataframe with historical data + test set
     # Use naive 24h forecast for historical period, SARIMA forecast for test period

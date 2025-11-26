@@ -23,7 +23,7 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 # Create output directory
-os.makedirs('phase3b_lstm_results', exist_ok=True)
+os.makedirs('results/phase3b_lstm_results', exist_ok=True)
 
 print("="*80)
 print("PHASE 3b: LSTM MODEL BUILDING WITH GPU/CUDA")
@@ -281,7 +281,7 @@ for country in countries:
 print("\n[4/7] Saving trained models...")
 
 for country in countries:
-    model_path = f'phase3b_lstm_results/lstm_model_{country}.pt'
+    model_path = f'results/phase3b_lstm_results/lstm_model_{country}.pt'
     torch.save({
         'model_state_dict': trained_models[country]['model'].state_dict(),
         'scaler_mean': trained_models[country]['scaler'].mean_[0],
@@ -307,8 +307,8 @@ for country in countries:
     ax.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(f'phase3b_lstm_results/training_history_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: phase3b_lstm_results/training_history_{country}.png")
+    plt.savefig(f'results/phase3b_lstm_results/training_history_{country}.png', dpi=300, bbox_inches='tight')
+    print(f"✓ Saved: results/phase3b_lstm_results/training_history_{country}.png")
     plt.close()
 
 # MODEL SUMMARY
@@ -348,9 +348,9 @@ for country in countries:
         'model_file': f'lstm_model_{country}.pt'
     }
 
-with open('phase3b_lstm_results/model_summary.json', 'w') as f:
-    json.dump(model_summary, f, indent=2)
-print("✓ Saved: phase3b_lstm_results/model_summary.json")
+with open('results/phase3b_lstm_results/model_summary.json', 'w') as f:
+    json.dump(summary, f, indent=2)
+print("✓ Saved: results/phase3b_lstm_results/model_summary.json")
 
 # PRINT SUMMARY
 print("\n[7/7] Summary of trained models...")
@@ -376,12 +376,12 @@ print(f"\nDevice Used: {device}")
 if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
 print("\nGenerated Files:")
-print("  1. phase3b_lstm_results/lstm_model_AT.pt")
-print("  2. phase3b_lstm_results/lstm_model_BE.pt")
-print("  3. phase3b_lstm_results/lstm_model_BG.pt")
-print("  4. phase3b_lstm_results/training_history_AT.png")
-print("  5. phase3b_lstm_results/training_history_BE.png")
-print("  6. phase3b_lstm_results/training_history_BG.png")
-print("  7. phase3b_lstm_results/model_summary.json")
+print("  1. results/phase3b_lstm_results/lstm_model_AT.pt")
+print("  2. results/phase3b_lstm_results/lstm_model_BE.pt")
+print("  3. results/phase3b_lstm_results/lstm_model_BG.pt")
+print("  4. results/phase3b_lstm_results/training_history_AT.png")
+print("  5. results/phase3b_lstm_results/training_history_BE.png")
+print("  6. results/phase3b_lstm_results/training_history_BG.png")
+print("  7. results/phase3b_lstm_results/model_summary.json")
 print("\nLSTM models trained and ready for Phase 4b forecasting!")
 print("="*80)

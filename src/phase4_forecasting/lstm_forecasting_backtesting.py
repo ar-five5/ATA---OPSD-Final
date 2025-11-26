@@ -22,7 +22,7 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 # Create output directory
-os.makedirs('phase4b_lstm_results', exist_ok=True)
+os.makedirs('results/phase4b_lstm_results', exist_ok=True)
 
 print("="*80)
 print("PHASE 4b: LSTM FORECASTING AND BACKTESTING")
@@ -295,8 +295,8 @@ print("✓ Saved: phase4b_lstm_results/metrics_summary.json")
 
 # Comparison CSV
 metrics_df = pd.DataFrame(metrics_summary).T
-metrics_df.to_csv('phase4b_lstm_results/metrics_comparison.csv')
-print("✓ Saved: phase4b_lstm_results/metrics_comparison.csv")
+metrics_df.to_csv('results/phase4b_lstm_results/metrics_comparison.csv')
+print("✓ Saved: results/phase4b_lstm_results/metrics_comparison.csv")
 
 # VISUALIZATIONS
 print("\n[5/6] Creating visualizations...")
@@ -333,8 +333,8 @@ for country in countries:
     ax.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(f'phase4b_lstm_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: phase4b_lstm_results/forecast_{country}.png")
+    plt.savefig(f'results/phase4b_lstm_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
+    print(f"✓ Saved: results/phase4b_lstm_results/forecast_{country}.png")
     plt.close()
 
 # SAVE FORECAST DATA
@@ -354,8 +354,8 @@ for country in countries:
         'pct_error': ((actuals - forecasts) / actuals) * 100
     })
     
-    forecast_df.to_csv(f'phase4b_lstm_results/forecast_data_{country}.csv', index=False)
-    print(f"✓ Saved: phase4b_lstm_results/forecast_data_{country}.csv")
+    forecast_df.to_csv(f'results/phase4b_lstm_results/forecast_data_{country}.csv', index=False)
+    print(f"✓ Saved: results/phase4b_lstm_results/forecast_data_{country}.csv")
 
 # COMPARISON WITH SARIMA
 print("\n" + "="*80)
@@ -363,7 +363,7 @@ print("COMPARING LSTM vs SARIMA PERFORMANCE")
 print("="*80)
 
 # Load SARIMA metrics
-with open('phase4_results/metrics_summary.json', 'r') as f:
+with open('results/phase4_results/metrics_summary.json', 'r') as f:
     sarima_metrics = json.load(f)
 
 # Create comparison table
@@ -389,7 +389,7 @@ for country in countries:
     })
 
 comparison_df = pd.DataFrame(comparison_data)
-comparison_df.to_csv('phase4b_lstm_results/lstm_vs_sarima_comparison.csv', index=False)
+comparison_df.to_csv('results/phase4b_lstm_results/lstm_vs_sarima_comparison.csv', index=False)
 
 # Print comparison
 print("\nMASE Comparison (lower is better):")
@@ -422,15 +422,15 @@ if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
 
 print("\nGenerated Files:")
-print("  1. phase4b_lstm_results/metrics_summary.json")
-print("  2. phase4b_lstm_results/metrics_comparison.csv")
-print("  3. phase4b_lstm_results/forecast_AT.png")
-print("  4. phase4b_lstm_results/forecast_BE.png")
-print("  5. phase4b_lstm_results/forecast_BG.png")
-print("  6. phase4b_lstm_results/forecast_data_AT.csv")
-print("  7. phase4b_lstm_results/forecast_data_BE.csv")
-print("  8. phase4b_lstm_results/forecast_data_BG.csv")
-print("  9. phase4b_lstm_results/lstm_vs_sarima_comparison.csv")
+print("  1. results/phase4b_lstm_results/metrics_summary.json")
+print("  2. results/phase4b_lstm_results/metrics_comparison.csv")
+print("  3. results/phase4b_lstm_results/forecast_AT.png")
+print("  4. results/phase4b_lstm_results/forecast_BE.png")
+print("  5. results/phase4b_lstm_results/forecast_BG.png")
+print("  6. results/phase4b_lstm_results/forecast_data_AT.csv")
+print("  7. results/phase4b_lstm_results/forecast_data_BE.csv")
+print("  8. results/phase4b_lstm_results/forecast_data_BG.csv")
+print("  9. results/phase4b_lstm_results/lstm_vs_sarima_comparison.csv")
 
 print("\n" + "="*80)
 print("LSTM forecasting complete with SARIMA comparison!")

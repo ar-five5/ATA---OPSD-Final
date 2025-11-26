@@ -18,7 +18,7 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
 # Create output directory
-os.makedirs('phase4_results', exist_ok=True)
+os.makedirs('results/phase4_results', exist_ok=True)
 
 print("="*80)
 print("PHASE 4: DAY-AHEAD 24-STEP FORECASTING WITH BACKTESTING")
@@ -304,8 +304,8 @@ for country in countries:
     axes[1].grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(f'phase4_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: phase4_results/forecast_{country}.png")
+    plt.savefig(f'results/phase4_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
+    print(f"✓ Saved: results/phase4_results/forecast_{country}.png")
     plt.close()
 
 # SAVE RESULTS
@@ -318,8 +318,8 @@ print("✓ Saved: phase4_results/metrics_summary.json")
 
 # Create metrics comparison table
 metrics_df = pd.DataFrame(metrics_summary).T
-metrics_df.to_csv('phase4_results/metrics_comparison.csv')
-print("✓ Saved: phase4_results/metrics_comparison.csv")
+metrics_df.to_csv('results/phase4_results/metrics_comparison.csv')
+print("✓ Saved: results/phase4_results/metrics_comparison.csv")
 
 # Save forecast data for each country
 for country in countries:
@@ -331,8 +331,8 @@ for country in countries:
         'upper_bound_80%': forecast_results[country]['upper_bound'],
         'error': forecast_results[country]['actual'] - forecast_results[country]['forecast']
     })
-    forecast_df.to_csv(f'phase4_results/forecast_data_{country}.csv', index=False)
-    print(f"✓ Saved: phase4_results/forecast_data_{country}.csv")
+    forecast_df.to_csv(f'results/phase4_results/forecast_data_{country}.csv', index=False)
+    print(f"✓ Saved: results/phase4_results/forecast_data_{country}.csv")
 
 # Print final summary
 print("\n" + "="*80)
@@ -344,13 +344,13 @@ print("\n" + "="*80)
 print("PHASE 4 COMPLETE!")
 print("="*80)
 print("\nGenerated Files:")
-print("  1. phase4_results/forecast_AT.png")
-print("  2. phase4_results/forecast_BE.png")
-print("  3. phase4_results/forecast_BG.png")
-print("  4. phase4_results/metrics_summary.json")
-print("  5. phase4_results/metrics_comparison.csv")
-print("  6. phase4_results/forecast_data_AT.csv")
-print("  7. phase4_results/forecast_data_BE.csv")
-print("  8. phase4_results/forecast_data_BG.csv")
+print("  1. results/phase4_results/forecast_AT.png")
+print("  2. results/phase4_results/forecast_BE.png")
+print("  3. results/phase4_results/forecast_BG.png")
+print("  4. results/phase4_results/metrics_summary.json")
+print("  5. results/phase4_results/metrics_comparison.csv")
+print("  6. results/phase4_results/forecast_data_AT.csv")
+print("  7. results/phase4_results/forecast_data_BE.csv")
+print("  8. results/phase4_results/forecast_data_BG.csv")
 print("\nDay-ahead forecasting and backtesting completed successfully!")
 print("="*80)

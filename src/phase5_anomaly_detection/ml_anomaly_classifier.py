@@ -50,7 +50,7 @@ for country in countries:
     df_anom = pd.read_csv(f'outputs/{country}_anomalies.csv', parse_dates=['timestamp'])
     
     # Load forecast results (for prediction intervals)
-    df_forecast = pd.read_csv(f'phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
+    df_forecast = pd.read_csv(f'results/phase4_results/forecast_data_{country}.csv', parse_dates=['timestamp'])
     
     # Merge to get prediction intervals
     df = df_anom.merge(df_forecast[['timestamp', 'lower_bound_80%', 'upper_bound_80%']], on='timestamp', how='left')
