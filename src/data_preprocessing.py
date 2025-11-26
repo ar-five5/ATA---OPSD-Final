@@ -19,7 +19,7 @@ df_clean['utc_timestamp'] = pd.to_datetime(df_clean['utc_timestamp'])
 
 load_cols = [col for col in df_clean.columns if 'load_actual_entsoe' in col and col.startswith(('AT_', 'BE_', 'BG_'))]
 
-print(f"✓ Loaded: {len(df_clean):,} hours")
+print(f" Loaded: {len(df_clean):,} hours")
 print(f"  Period: {df_clean['utc_timestamp'].min()} to {df_clean['utc_timestamp'].max()}")
 
 print("\n[STEP 2] Creating Train/Val/Test Splits (80/10/10)...")
@@ -48,7 +48,7 @@ for dataset, name in [(train_data, 'train'), (val_data, 'val'), (test_data, 'tes
     dataset['day_of_week'] = dataset['utc_timestamp'].dt.dayofweek
     dataset['month'] = dataset['utc_timestamp'].dt.month
     dataset['is_weekend'] = (dataset['day_of_week'] >= 5).astype(int)
-    print(f"✓ Added time features to {name} set (hour, day_of_week, month, is_weekend)")
+    print(f" Added time features to {name} set (hour, day_of_week, month, is_weekend)")
 
 print("\n[STEP 4] Saving Preprocessed Datasets...")
 
@@ -56,9 +56,9 @@ train_data.to_csv('data/preprocessed/train_data.csv', index=False)
 val_data.to_csv('data/preprocessed/val_data.csv', index=False)
 test_data.to_csv('data/preprocessed/test_data.csv', index=False)
 
-print("✓ train_data.csv")
-print("✓ val_data.csv")
-print("✓ test_data.csv")
+print(" train_data.csv")
+print(" val_data.csv")
+print(" test_data.csv")
 
 print("\n[STEP 5] Generating Analysis Visualizations...")
 
@@ -80,7 +80,7 @@ for idx, (code, name) in enumerate(countries.items()):
 axes[2].set_xlabel('Timestamp')
 plt.tight_layout()
 plt.savefig('results/preprocessing/data_splits.png', dpi=300, bbox_inches='tight')
-print("✓ data_splits.png")
+print(" data_splits.png")
 plt.close()
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -99,7 +99,7 @@ for idx, (code, name) in enumerate(countries.items()):
 
 plt.tight_layout()
 plt.savefig('results/preprocessing/hourly_patterns.png', dpi=300, bbox_inches='tight')
-print("✓ hourly_patterns.png")
+print(" hourly_patterns.png")
 plt.close()
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -119,7 +119,7 @@ for idx, (code, name) in enumerate(countries.items()):
 
 plt.tight_layout()
 plt.savefig('results/preprocessing/weekly_patterns.png', dpi=300, bbox_inches='tight')
-print("✓ weekly_patterns.png")
+print(" weekly_patterns.png")
 plt.close()
 
 summary_stats = pd.DataFrame()
@@ -138,13 +138,13 @@ for dataset_name, dataset in [('Train', train_data), ('Val', val_data), ('Test',
         summary_stats = pd.concat([summary_stats, pd.DataFrame([stats])], ignore_index=True)
 
 summary_stats.to_csv('results/preprocessing/split_summary.csv', index=False)
-print("✓ split_summary.csv")
+print(" split_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA PREPROCESSING COMPLETE")
 print("=" * 80)
-print(f"\n✓ Train set: {len(train_data):,} hours")
-print(f"✓ Validation set: {len(val_data):,} hours")
-print(f"✓ Test set: {len(test_data):,} hours")
-print("\n✓ Output directory: data/preprocessed/")
-print("✓ Visualizations: results/preprocessing/")
+print(f"\n Train set: {len(train_data):,} hours")
+print(f" Validation set: {len(val_data):,} hours")
+print(f" Test set: {len(test_data):,} hours")
+print("\n Output directory: data/preprocessed/")
+print(" Visualizations: results/preprocessing/")

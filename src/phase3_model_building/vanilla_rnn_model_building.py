@@ -37,7 +37,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
 if torch.cuda.is_available():
-    print("✓ CUDA is available!")
+    print(" CUDA is available!")
     print(f"  GPU Name: {torch.cuda.get_device_name(0)}")
     print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"  CUDA Version: {torch.version.cuda}")
@@ -258,7 +258,7 @@ def train_vanilla_rnn_model(model, train_loader, dev_loader, num_epochs=50, lr=0
         
         # Early stopping
         if patience_counter >= max_patience:
-            print(f"\n  ✓ Early stopping at epoch {epoch+1}")
+            print(f"\n   Early stopping at epoch {epoch+1}")
             break
     
     training_time = time.time() - start_time
@@ -267,8 +267,8 @@ def train_vanilla_rnn_model(model, train_loader, dev_loader, num_epochs=50, lr=0
     if best_model_state is not None:
         model.load_state_dict(best_model_state)
     
-    print(f"  ✓ Training completed in {training_time:.1f} seconds")
-    print(f"  ✓ Best dev loss: {best_dev_loss:.6f}")
+    print(f"   Training completed in {training_time:.1f} seconds")
+    print(f"   Best dev loss: {best_dev_loss:.6f}")
     
     return {
         'train_losses': train_losses,
@@ -352,7 +352,7 @@ for country in countries:
         'training_time': history['training_time_seconds']
     }, model_path)
     
-    print(f"  ✓ Model saved to {model_path}")
+    print(f"   Model saved to {model_path}")
     
     # Store results
     training_results[country] = {
@@ -380,7 +380,7 @@ for country in training_results:
 with open('results/phase3e_vanilla_rnn_results/training_summary.json', 'w') as f:
     json.dump(json_results, f, indent=2)
 
-print("✓ Training summary saved")
+print(" Training summary saved")
 
 # PLOT TRAINING CURVES
 print("\n[5/7] Plotting training curves...")
@@ -409,7 +409,7 @@ plt.tight_layout()
 plt.savefig('results/phase3e_vanilla_rnn_results/training_curves.png', dpi=150, bbox_inches='tight')
 plt.close()
 
-print("✓ Training curves saved")
+print(" Training curves saved")
 
 # TRAINING SUMMARY TABLE
 print("\n[6/7] Creating training summary...")

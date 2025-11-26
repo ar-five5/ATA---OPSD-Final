@@ -147,7 +147,7 @@ for country in countries:
     print(f"  Total points: {n_total}")
     print(f"  Z-score anomalies (|z| >= 3.0): {n_z_anomalies} ({n_z_anomalies/n_total*100:.2f}%)")
     print(f"  CUSUM anomalies: {n_cusum_anomalies} ({n_cusum_anomalies/n_total*100:.2f}%)")
-    print(f"  ✓ Saved: {output_file}")
+    print(f"   Saved: {output_file}")
 
 # VISUALIZATION: Anomaly Detection Results
 
@@ -204,7 +204,7 @@ for country in countries:
     plt.savefig(f'outputs/{country}_anomaly_detection.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"  ✓ Saved: outputs/{country}_anomaly_detection.png")
+    print(f"   Saved: outputs/{country}_anomaly_detection.png")
 
 # SUMMARY STATISTICS
 
@@ -231,7 +231,7 @@ with open('outputs/anomaly_summary_stats.json', 'w') as f:
     json.dump(summary_stats, f, indent=2)
 
 print("\n" + pd.DataFrame(summary_stats).T.to_string())
-print("\n✓ Saved: outputs/anomaly_summary_stats.json")
+print("\n Saved: outputs/anomaly_summary_stats.json")
 
 print("\n" + "="*80)
 print("PART 1 COMPLETE: Z-score and CUSUM anomaly detection")

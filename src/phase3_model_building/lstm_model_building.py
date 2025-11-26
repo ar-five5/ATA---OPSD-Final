@@ -36,7 +36,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
 if torch.cuda.is_available():
-    print(f"✓ CUDA is available!")
+    print(f" CUDA is available!")
     print(f"  GPU Name: {torch.cuda.get_device_name(0)}")
     print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"  CUDA Version: {torch.version.cuda}")
@@ -275,7 +275,7 @@ for country in countries:
         'dev_losses': dev_losses
     }
     
-    print(f"✓ Training complete for {country}")
+    print(f" Training complete for {country}")
 
 # SAVE MODELS
 print("\n[4/7] Saving trained models...")
@@ -287,7 +287,7 @@ for country in countries:
         'scaler_mean': trained_models[country]['scaler'].mean_[0],
         'scaler_scale': trained_models[country]['scaler'].scale_[0],
     }, model_path)
-    print(f"✓ Saved: {model_path}")
+    print(f" Saved: {model_path}")
 
 # PLOT TRAINING HISTORY
 print("\n[5/7] Plotting training history...")
@@ -308,7 +308,7 @@ for country in countries:
     
     plt.tight_layout()
     plt.savefig(f'results/phase3b_lstm_results/training_history_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: results/phase3b_lstm_results/training_history_{country}.png")
+    print(f" Saved: results/phase3b_lstm_results/training_history_{country}.png")
     plt.close()
 
 # MODEL SUMMARY
@@ -350,7 +350,7 @@ for country in countries:
 
 with open('results/phase3b_lstm_results/model_summary.json', 'w') as f:
     json.dump(summary, f, indent=2)
-print("✓ Saved: results/phase3b_lstm_results/model_summary.json")
+print(" Saved: results/phase3b_lstm_results/model_summary.json")
 
 # PRINT SUMMARY
 print("\n[7/7] Summary of trained models...")

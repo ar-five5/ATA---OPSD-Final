@@ -181,7 +181,7 @@ for country in countries:
     mape = calculate_mape(actuals, forecasts)
     rmse = calculate_rmse(actuals, forecasts)
     
-    print(f"✓ MASE: {mase:.4f} | MAPE: {mape:.2f}% | RMSE: {rmse:.2f} MW")
+    print(f" MASE: {mase:.4f} | MAPE: {mape:.2f}% | RMSE: {rmse:.2f} MW")
     
     # Store results
     all_results[country] = {
@@ -265,7 +265,7 @@ for country in countries:
     plt.savefig(f'results/phase3e_vanilla_rnn_results/forecast_{country}.png', dpi=150, bbox_inches='tight')
     plt.close()
 
-print("✓ Visualizations saved")
+print(" Visualizations saved")
 
 print("\n" + "="*80)
 print("PHASE 4e COMPLETE: Vanilla RNN forecasting finished!")

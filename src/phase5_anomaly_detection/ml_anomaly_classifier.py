@@ -89,7 +89,7 @@ for country in countries:
 # Combine all countries
 df_all_labeled = pd.concat(all_labeled_data, ignore_index=True)
 
-print(f"\n✓ Total labeled samples across all countries: {len(df_all_labeled)}")
+print(f"\n Total labeled samples across all countries: {len(df_all_labeled)}")
 print(f"  - Positive: {(df_all_labeled['silver_label'] == 1).sum()}")
 print(f"  - Negative: {(df_all_labeled['silver_label'] == 0).sum()}")
 
@@ -134,7 +134,7 @@ verification_cols = ['timestamp', 'country', 'y_true', 'yhat', 'z_resid',
                      'silver_label', 'human_verified_label', 'verification_notes']
 df_verification[verification_cols].to_csv('outputs/anomaly_labels_verified.csv', index=False)
 
-print(f"\n✓ Saved: outputs/anomaly_labels_verified.csv ({len(df_verification)} samples)")
+print(f"\n Saved: outputs/anomaly_labels_verified.csv ({len(df_verification)} samples)")
 
 # PART 3: FEATURE ENGINEERING
 
@@ -193,8 +193,8 @@ df_features = pd.concat(features_list, ignore_index=True)
 # Drop rows with NaN (from lag/rolling features)
 df_features = df_features.dropna()
 
-print(f"✓ Created {df_features.shape[1]-2} features")
-print(f"✓ Training samples after removing NaN: {len(df_features)}")
+print(f" Created {df_features.shape[1]-2} features")
+print(f" Training samples after removing NaN: {len(df_features)}")
 
 # PART 4: TRAIN ML CLASSIFIER
 
@@ -249,7 +249,7 @@ if n_positive_train == 0 or n_positive_test == 0:
         with open('outputs/anomaly_ml_eval.json', 'w') as f:
             json.dump(eval_results, f, indent=2)
         
-        print(f"\n✓ Saved: outputs/anomaly_ml_eval.json")
+        print(f"\n Saved: outputs/anomaly_ml_eval.json")
         exit(0)
 
 # Model 1: Logistic Regression
@@ -379,7 +379,7 @@ if hasattr(lgb_model, 'feature_importances_'):
 with open('outputs/anomaly_ml_eval.json', 'w') as f:
     json.dump(evaluation_results, f, indent=2)
 
-print("✓ Saved: outputs/anomaly_ml_eval.json")
+print(" Saved: outputs/anomaly_ml_eval.json")
 
 # VISUALIZATION: PR Curves
 
@@ -401,16 +401,16 @@ plt.tight_layout()
 plt.savefig('outputs/anomaly_ml_pr_curves.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-print("✓ Saved: outputs/anomaly_ml_pr_curves.png")
+print(" Saved: outputs/anomaly_ml_pr_curves.png")
 
 # FINAL SUMMARY
 
 print("\n" + "="*80)
 print("PHASE 5b COMPLETE: ML-BASED ANOMALY CLASSIFIER")
 print("="*80)
-print(f"\n✓ Silver labels created and saved")
-print(f"✓ Human verification samples: {len(df_verification)} ({len(df_verification)//3} per country)")
-print(f"✓ ML models trained and evaluated")
+print(f"\n Silver labels created and saved")
+print(f" Human verification samples: {len(df_verification)} ({len(df_verification)//3} per country)")
+print(f" ML models trained and evaluated")
 print(f"\nBest Model: {'LightGBM' if pr_auc_lgb > pr_auc_lr else 'Logistic Regression'}")
 print(f"  PR-AUC: {max(pr_auc_lr, pr_auc_lgb):.4f}")
 print(f"  F1 @ P≥0.80: {max(f1_lr, f1_lgb):.4f}")

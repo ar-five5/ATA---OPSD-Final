@@ -234,7 +234,7 @@ for country in COUNTRIES:
     
     avg_mape = results_df['mape'].mean()
     avg_mase = results_df['mase'].mean()
-    print(f"\n  ✓ Complete: Avg MAPE={avg_mape:.2f}%, Avg MASE={avg_mase:.4f}, Refits={refit_count-1}")
+    print(f"\n   Complete: Avg MAPE={avg_mape:.2f}%, Avg MASE={avg_mase:.4f}, Refits={refit_count-1}")
 
 # SAVE RESULTS
 
@@ -245,7 +245,7 @@ os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 for country in COUNTRIES:
     filepath = f'results/phase6_live_adaptation/{country}_gru_live_simulation.csv'
     all_results[country].to_csv(filepath, index=False)
-    print(f"✓ Saved {country}_gru_live_simulation.csv")
+    print(f" Saved {country}_gru_live_simulation.csv")
 
 # Summary JSON
 summary = {}
@@ -262,7 +262,7 @@ for country in COUNTRIES:
 with open('results/phase6_live_adaptation/gru_simulation_summary.json', 'w') as f:
     json.dump(summary, f, indent=2)
 
-print("✓ Saved gru_simulation_summary.json")
+print(" Saved gru_simulation_summary.json")
 
 # VISUALIZATIONS
 
@@ -291,7 +291,7 @@ for idx, country in enumerate(COUNTRIES):
 
 plt.tight_layout()
 plt.savefig('results/phase6_live_adaptation/gru_performance_evolution.png', dpi=300, bbox_inches='tight')
-print("✓ Saved gru_performance_evolution.png")
+print(" Saved gru_performance_evolution.png")
 plt.close()
 
 print("\n" + "="*80)

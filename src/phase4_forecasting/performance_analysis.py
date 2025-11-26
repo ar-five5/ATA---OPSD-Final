@@ -40,7 +40,7 @@ try:
         # We'll use saved data if available
         sarima_time_per_country[country] = 300  # 5 min estimate per country
     training_times['SARIMA'] = sarima_time_per_country
-    print("✓ SARIMA training time estimated")
+    print(" SARIMA training time estimated")
 except Exception as e:
     print(f"⚠ Could not estimate SARIMA time: {e}")
 
@@ -48,7 +48,7 @@ except Exception as e:
 try:
     lstm_training = json.load(open('results/phase3b_lstm_results/training_summary.json'))
     training_times['LSTM'] = {c: lstm_training[c]['training_time_seconds'] for c in ['AT', 'BE', 'BG']}
-    print("✓ LSTM training times loaded")
+    print(" LSTM training times loaded")
 except FileNotFoundError:
     print("⚠ LSTM training summary not found")
 
@@ -56,7 +56,7 @@ except FileNotFoundError:
 try:
     gru_training = json.load(open('results/phase3d_gru_results/training_summary.json'))
     training_times['GRU'] = {c: gru_training[c]['training_time_seconds'] for c in ['AT', 'BE', 'BG']}
-    print("✓ GRU training times loaded")
+    print(" GRU training times loaded")
 except FileNotFoundError:
     print("⚠ GRU training summary not found - run phase3d first")
 
@@ -64,7 +64,7 @@ except FileNotFoundError:
 try:
     vanilla_training = json.load(open('results/phase3e_vanilla_rnn_results/training_summary.json'))
     training_times['Vanilla_RNN'] = {c: vanilla_training[c]['training_time_seconds'] for c in ['AT', 'BE', 'BG']}
-    print("✓ Vanilla RNN training times loaded")
+    print(" Vanilla RNN training times loaded")
 except FileNotFoundError:
     print("⚠ Vanilla RNN training summary not found - run phase3e first")
 
@@ -87,7 +87,7 @@ try:
         train = data[:int(0.8 * len(data))]
         
         # Load best model from results
-        model_summary = json.load(open('results/phase3_results/model_selection_summary.json'))
+        model_summary = json.load(open('phase3_results/model_selection_summary.json'))
         order = tuple(model_summary[country]['best_aic']['order'])
         seasonal_order = tuple(model_summary[country]['best_aic']['seasonal_order'])
         
@@ -103,7 +103,7 @@ try:
         sarima_inf_times[country] = (time.time() - start) / 1000
     
     inference_times['SARIMA'] = sarima_inf_times
-    print(f"✓ SARIMA: {np.mean(list(sarima_inf_times.values()))*1000:.2f} ms avg")
+    print(f" SARIMA: {np.mean(list(sarima_inf_times.values()))*1000:.2f} ms avg")
 except Exception as e:
     print(f"⚠ SARIMA inference measurement failed: {e}")
 
@@ -159,7 +159,7 @@ try:
             lstm_inf_times[country] = (time.time() - start) / 1000
         
         inference_times['LSTM'] = lstm_inf_times
-        print(f"✓ LSTM: {np.mean(list(lstm_inf_times.values()))*1000:.2f} ms avg")
+        print(f" LSTM: {np.mean(list(lstm_inf_times.values()))*1000:.2f} ms avg")
     except Exception as e:
         print(f"⚠ LSTM inference failed: {e}")
     
@@ -204,7 +204,7 @@ try:
             gru_inf_times[country] = (time.time() - start) / 1000
         
         inference_times['GRU'] = gru_inf_times
-        print(f"✓ GRU: {np.mean(list(gru_inf_times.values()))*1000:.2f} ms avg")
+        print(f" GRU: {np.mean(list(gru_inf_times.values()))*1000:.2f} ms avg")
     except Exception as e:
         print(f"⚠ GRU inference failed: {e}")
     
@@ -249,7 +249,7 @@ try:
             vanilla_inf_times[country] = (time.time() - start) / 1000
         
         inference_times['Vanilla_RNN'] = vanilla_inf_times
-        print(f"✓ Vanilla RNN: {np.mean(list(vanilla_inf_times.values()))*1000:.2f} ms avg")
+        print(f" Vanilla RNN: {np.mean(list(vanilla_inf_times.values()))*1000:.2f} ms avg")
     except Exception as e:
         print(f"⚠ Vanilla RNN inference failed: {e}")
 
@@ -267,7 +267,7 @@ accuracy_metrics = {}
 try:
     sarima_metrics = json.load(open('results/phase4_results/metrics_summary.json'))
     accuracy_metrics['SARIMA'] = sarima_metrics
-    print("✓ SARIMA metrics loaded")
+    print(" SARIMA metrics loaded")
 except:
     print("⚠ SARIMA metrics not found")
 
@@ -275,7 +275,7 @@ except:
 try:
     lstm_metrics = json.load(open('results/phase4b_lstm_results/metrics_summary.json'))
     accuracy_metrics['LSTM'] = lstm_metrics
-    print("✓ LSTM metrics loaded")
+    print(" LSTM metrics loaded")
 except:
     print("⚠ LSTM metrics not found")
 
@@ -283,7 +283,7 @@ except:
 try:
     gru_metrics = json.load(open('results/phase3d_gru_results/metrics_summary.json'))
     accuracy_metrics['GRU'] = gru_metrics
-    print("✓ GRU metrics loaded")
+    print(" GRU metrics loaded")
 except:
     print("⚠ GRU metrics not found")
 
@@ -291,7 +291,7 @@ except:
 try:
     vanilla_metrics = json.load(open('results/phase3e_vanilla_rnn_results/metrics_summary.json'))
     accuracy_metrics['Vanilla_RNN'] = vanilla_metrics
-    print("✓ Vanilla RNN metrics loaded")
+    print(" Vanilla RNN metrics loaded")
 except:
     print("⚠ Vanilla RNN metrics not found")
 
@@ -437,7 +437,7 @@ plt.tight_layout()
 plt.savefig('results/phase6_performance_analysis/performance_heatmap.png', dpi=150, bbox_inches='tight')
 plt.close()
 
-print("✓ All visualizations saved")
+print(" All visualizations saved")
 
 # ============================================================================
 # FINAL RECOMMENDATIONS

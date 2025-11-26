@@ -438,7 +438,7 @@ for country in countries:
     
     plt.tight_layout()
     plt.savefig(f'phase3_results/grid_search_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: phase3_results/grid_search_{country}.png")
+    print(f" Saved: phase3_results/grid_search_{country}.png")
     plt.close()
 
 # TASK 4: DOCUMENT MODEL ORDERS
@@ -497,7 +497,7 @@ for country in countries:
 with open('phase3_results/model_selection_summary.json', 'w') as f:
     json.dump(model_selection_summary, f, indent=2)
 
-print("\n✓ Saved: phase3_results/model_selection_summary.json")
+print("\n Saved: phase3_results/model_selection_summary.json")
 
 # Create readable summary table
 summary_data = []
@@ -524,7 +524,7 @@ for country in countries:
 if summary_data:
     summary_df = pd.DataFrame(summary_data)
     summary_df.to_csv('phase3_results/selected_models.csv', index=False)
-    print("✓ Saved: phase3_results/selected_models.csv")
+    print(" Saved: phase3_results/selected_models.csv")
 else:
     print("⚠ No completed countries; selected_models.csv not created yet")
 

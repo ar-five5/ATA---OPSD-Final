@@ -134,7 +134,7 @@ for country in countries:
         'scaler': scaler
     }
     
-    print(f"✓ Loaded model for {country}")
+    print(f" Loaded model for {country}")
 
 # FORECASTING FUNCTIONS
 
@@ -268,7 +268,7 @@ for country in countries:
         }
     }
     
-    print(f"✓ Generated {len(forecasts_array)} hourly forecasts")
+    print(f" Generated {len(forecasts_array)} hourly forecasts")
     print(f"  MASE: {mase:.4f}")
     print(f"  sMAPE: {smape:.2f}%")
     print(f"  RMSE: {rmse:.2f} MW")
@@ -291,12 +291,12 @@ metrics_summary = {
 
 with open('phase4b_lstm_results/metrics_summary.json', 'w') as f:
     json.dump(metrics_summary, f, indent=2)
-print("✓ Saved: phase4b_lstm_results/metrics_summary.json")
+print(" Saved: phase4b_lstm_results/metrics_summary.json")
 
 # Comparison CSV
 metrics_df = pd.DataFrame(metrics_summary).T
 metrics_df.to_csv('results/phase4b_lstm_results/metrics_comparison.csv')
-print("✓ Saved: results/phase4b_lstm_results/metrics_comparison.csv")
+print(" Saved: results/phase4b_lstm_results/metrics_comparison.csv")
 
 # VISUALIZATIONS
 print("\n[5/6] Creating visualizations...")
@@ -334,7 +334,7 @@ for country in countries:
     
     plt.tight_layout()
     plt.savefig(f'results/phase4b_lstm_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: results/phase4b_lstm_results/forecast_{country}.png")
+    print(f" Saved: results/phase4b_lstm_results/forecast_{country}.png")
     plt.close()
 
 # SAVE FORECAST DATA
@@ -355,7 +355,7 @@ for country in countries:
     })
     
     forecast_df.to_csv(f'results/phase4b_lstm_results/forecast_data_{country}.csv', index=False)
-    print(f"✓ Saved: results/phase4b_lstm_results/forecast_data_{country}.csv")
+    print(f" Saved: results/phase4b_lstm_results/forecast_data_{country}.csv")
 
 # COMPARISON WITH SARIMA
 print("\n" + "="*80)

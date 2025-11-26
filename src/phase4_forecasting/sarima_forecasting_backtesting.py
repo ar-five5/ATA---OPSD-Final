@@ -225,7 +225,7 @@ for country in countries:
         'train_data': train_data
     }
     
-    print(f"✓ Generated {len(forecasts)} hourly forecasts")
+    print(f" Generated {len(forecasts)} hourly forecasts")
 
 # CALCULATE METRICS
 print("\n[4/6] Computing evaluation metrics...")
@@ -257,12 +257,12 @@ for country in countries:
     }
     
     print(f"\n{country} Metrics:")
-    print(f"  MASE: {mase:.4f} {'(✓ Better than naive)' if mase < 1 else '(⚠ Worse than naive)'}")
+    print(f"  MASE: {mase:.4f} {'( Better than naive)' if mase < 1 else '(⚠ Worse than naive)'}")
     print(f"  sMAPE: {smape:.2f}%")
     print(f"  MAPE: {mape:.2f}%")
     print(f"  RMSE: {rmse:.2f}")
     print(f"  MSE: {mse:.2f}")
-    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'(✓ Good)' if 75 <= pi_coverage <= 85 else '(⚠)'}")
+    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'( Good)' if 75 <= pi_coverage <= 85 else '(⚠)'}")
 
 # VISUALIZE FORECASTS
 print("\n[5/6] Generating forecast visualizations...")
@@ -305,21 +305,21 @@ for country in countries:
     
     plt.tight_layout()
     plt.savefig(f'results/phase4_results/forecast_{country}.png', dpi=300, bbox_inches='tight')
-    print(f"✓ Saved: results/phase4_results/forecast_{country}.png")
+    print(f" Saved: results/phase4_results/forecast_{country}.png")
     plt.close()
 
 # SAVE RESULTS
 print("\n[6/6] Saving forecast results and metrics...")
 
 # Save metrics summary
-with open('phase4_results/metrics_summary.json', 'w') as f:
+with open('results/phase4_results/metrics_summary.json', 'w') as f:
     json.dump(metrics_summary, f, indent=2)
-print("✓ Saved: phase4_results/metrics_summary.json")
+print("Saved: results/phase4_results/metrics_summary.json")
 
 # Create metrics comparison table
 metrics_df = pd.DataFrame(metrics_summary).T
 metrics_df.to_csv('results/phase4_results/metrics_comparison.csv')
-print("✓ Saved: results/phase4_results/metrics_comparison.csv")
+print(" Saved: results/phase4_results/metrics_comparison.csv")
 
 # Save forecast data for each country
 for country in countries:
@@ -332,7 +332,7 @@ for country in countries:
         'error': forecast_results[country]['actual'] - forecast_results[country]['forecast']
     })
     forecast_df.to_csv(f'results/phase4_results/forecast_data_{country}.csv', index=False)
-    print(f"✓ Saved: results/phase4_results/forecast_data_{country}.csv")
+    print(f" Saved: results/phase4_results/forecast_data_{country}.csv")
 
 # Print final summary
 print("\n" + "="*80)

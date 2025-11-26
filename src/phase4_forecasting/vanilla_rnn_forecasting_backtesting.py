@@ -129,7 +129,7 @@ for country in countries:
         'scaler': scaler
     }
     
-    print(f"✓ Loaded model for {country}")
+    print(f" Loaded model for {country}")
 
 # FORECASTING FUNCTIONS
 
@@ -239,7 +239,7 @@ for country in countries:
         'timestamps': timestamps
     }
     
-    print(f"  ✓ MASE: {metrics['MASE']:.4f} | MAPE: {metrics['MAPE_%']:.2f}%")
+    print(f"   MASE: {metrics['MASE']:.4f} | MAPE: {metrics['MAPE_%']:.2f}%")
 
 # SAVE RESULTS
 print("\n[4/6] Saving forecast results...")
@@ -247,7 +247,7 @@ print("\n[4/6] Saving forecast results...")
 # Save metrics
 metrics_df = pd.DataFrame(all_metrics).T
 metrics_df.to_csv(os.path.join(base_dir, 'results/phase4d_rnn_results/metrics_comparison.csv'))
-print(f"✓ Saved metrics to results/phase4d_rnn_results/metrics_comparison.csv")
+print(f" Saved metrics to results/phase4d_rnn_results/metrics_comparison.csv")
 
 # Save individual country forecasts
 for country in countries:
@@ -257,7 +257,7 @@ for country in countries:
         'forecast': all_results[country]['forecasts']
     })
     result_df.to_csv(os.path.join(base_dir, f'results/phase4d_rnn_results/forecast_data_{country}.csv'), index=False)
-    print(f"✓ Saved {country} forecasts")
+    print(f" Saved {country} forecasts")
 
 # VISUALIZATIONS
 print("\n[5/6] Creating visualizations...")
@@ -282,7 +282,7 @@ for idx, country in enumerate(countries):
 
 plt.tight_layout()
 plt.savefig(os.path.join(base_dir, 'results/phase4d_rnn_results/forecast_comparison.png'), dpi=300, bbox_inches='tight')
-print("✓ Saved forecast_comparison.png")
+print(" Saved forecast_comparison.png")
 plt.close()
 
 # Metrics comparison
@@ -300,7 +300,7 @@ plt.xticks(rotation=0)
 
 plt.tight_layout()
 plt.savefig(os.path.join(base_dir, 'results/phase4d_rnn_results/metrics_bar_chart.png'), dpi=300, bbox_inches='tight')
-print("✓ Saved metrics_bar_chart.png")
+print(" Saved metrics_bar_chart.png")
 plt.close()
 
 # SUMMARY
@@ -310,5 +310,5 @@ print("="*80)
 print("\nPerformance Metrics:")
 print(metrics_df.to_string())
 
-print("\n✓ All results saved to results/phase4d_rnn_results/")
+print("\n All results saved to results/phase4d_rnn_results/")
 print("="*80)

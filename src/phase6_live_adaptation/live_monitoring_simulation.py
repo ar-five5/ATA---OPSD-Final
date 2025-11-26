@@ -194,7 +194,7 @@ for country in COUNTRIES:
         )
         fitted_model = current_model.fit(disp=False, maxiter=50, method='nm')  # Faster optimizer
         hours_since_refit = 0
-        print("✓ Initial model trained")
+        print(" Initial model trained")
     except Exception as e:
         print(f"❌ Error training initial model: {e}")
         continue
@@ -224,7 +224,7 @@ for country in COUNTRIES:
                 )
                 fitted_model = current_model.fit(disp=False, maxiter=50, method='nm')
                 hours_since_refit = 0
-                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}: ✓ Model refit (training size: {len(train_data)} hours)")
+                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}:  Model refit (training size: {len(train_data)} hours)")
             except:
                 # If refit fails, keep using old model
                 refit_this_hour = False
@@ -297,7 +297,7 @@ for country in COUNTRIES:
     valid_rmse = results_df['rmse_rolling_24h'].dropna()
     n_refits = results_df['refit_flag'].sum()
     
-    print(f"\n✓ Simulation complete for {country}")
+    print(f"\n Simulation complete for {country}")
     print(f"  Total hours: {len(results_df)}")
     print(f"  Model refits: {n_refits}")
     print(f"  Avg MASE: {valid_mase.mean():.4f}")
@@ -311,7 +311,7 @@ print("\n[4/6] Saving simulation results...")
 for country, results_df in simulation_results.items():
     output_file = f'results/phase6_live_adaptation/{country}_live_simulation.csv'
     results_df.to_csv(output_file, index=False)
-    print(f"✓ Saved: {output_file}")
+    print(f" Saved: {output_file}")
 
 # Save summary statistics
 summary_stats = {}
@@ -338,7 +338,7 @@ for country, results_df in simulation_results.items():
 with open('results/phase6_live_adaptation/simulation_summary.json', 'w') as f:
     json.dump(summary_stats, f, indent=2)
 
-print(f"✓ Saved: results/phase6_live_adaptation/simulation_summary.json")
+print(f" Saved: results/phase6_live_adaptation/simulation_summary.json")
 
 # VISUALIZATIONS
 
@@ -407,7 +407,7 @@ for country, results_df in simulation_results.items():
                 dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"✓ Saved: results/phase6_live_adaptation/{country}_live_monitoring.png")
+    print(f" Saved: results/phase6_live_adaptation/{country}_live_monitoring.png")
 
 # Create comparison plot across countries
 fig, axes = plt.subplots(2, 1, figsize=(14, 10), sharex=True)
@@ -441,7 +441,7 @@ plt.savefig('results/phase6_live_adaptation/comparison_all_countries.png',
             dpi=300, bbox_inches='tight')
 plt.close()
 
-print(f"✓ Saved: results/phase6_live_adaptation/comparison_all_countries.png")
+print(f" Saved: results/phase6_live_adaptation/comparison_all_countries.png")
 
 # SUMMARY REPORT
 

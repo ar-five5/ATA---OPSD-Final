@@ -16,7 +16,7 @@ print("=" * 80)
 print("\n[STEP 1] Loading Data...")
 
 df = pd.read_csv('data/time_series_60min_singleindex.csv')
-print(f"\n✓ Dataset loaded: {len(df):,} rows")
+print(f"\n Dataset loaded: {len(df):,} rows")
 
 df['utc_timestamp'] = pd.to_datetime(df['utc_timestamp'])
 df = df.sort_values('utc_timestamp').reset_index(drop=True)
@@ -59,7 +59,7 @@ for col in load_cols:
         print(f"  {col}: {missing_before} → {missing_after} missing values")
 
 df_clean = df.dropna(subset=load_cols)
-print(f"\n✓ Cleaned dataset: {len(df_clean):,} rows ({len(df_clean)/len(df)*100:.1f}% retained)")
+print(f"\n Cleaned dataset: {len(df_clean):,} rows ({len(df_clean)/len(df)*100:.1f}% retained)")
 
 print("\n[STEP 3] Outlier Detection and Handling...")
 
@@ -79,7 +79,7 @@ print("\n[STEP 4] Saving Cleaned Data...")
 
 os.makedirs('data/preprocessed', exist_ok=True)
 df_clean.to_csv('data/preprocessed/cleaned_full_data.csv', index=False)
-print("✓ Saved to: data/preprocessed/cleaned_full_data.csv")
+print(" Saved to: data/preprocessed/cleaned_full_data.csv")
 
 print("\n[STEP 5] Generating Quality Visualizations...")
 
@@ -99,7 +99,7 @@ for idx, (code, name) in enumerate(countries.items()):
 axes[2].set_xlabel('Timestamp')
 plt.tight_layout()
 plt.savefig('results/preprocessing/cleaned_time_series.png', dpi=300, bbox_inches='tight')
-print("✓ cleaned_time_series.png")
+print(" cleaned_time_series.png")
 plt.close()
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -117,7 +117,7 @@ for idx, (code, name) in enumerate(countries.items()):
 
 plt.tight_layout()
 plt.savefig('results/preprocessing/load_distributions.png', dpi=300, bbox_inches='tight')
-print("✓ load_distributions.png")
+print(" load_distributions.png")
 plt.close()
 
 summary_stats = pd.DataFrame()
@@ -135,11 +135,11 @@ for code in ['AT', 'BE', 'BG']:
     summary_stats = pd.concat([summary_stats, pd.DataFrame([stats])], ignore_index=True)
 
 summary_stats.to_csv('results/preprocessing/cleaning_summary.csv', index=False)
-print("✓ cleaning_summary.csv")
+print(" cleaning_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA CLEANING COMPLETE")
 print("=" * 80)
-print(f"\n✓ Cleaned data: {len(df_clean):,} hours")
-print("✓ Output: data/preprocessed/cleaned_full_data.csv")
-print("✓ Visualizations: results/preprocessing/")
+print(f"\n Cleaned data: {len(df_clean):,} hours")
+print(" Output: data/preprocessed/cleaned_full_data.csv")
+print(" Visualizations: results/preprocessing/")

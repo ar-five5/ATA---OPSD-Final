@@ -234,7 +234,7 @@ for country in COUNTRIES:
     
     avg_mape = np.mean(results['mape_rolling_24h'])
     avg_mase = np.mean(results['mase_rolling_24h'])
-    print(f"\n  ✓ Complete: Avg MAPE={avg_mape:.2f}%, Avg MASE={avg_mase:.4f}, Refits={refit_count}")
+    print(f"\n   Complete: Avg MAPE={avg_mape:.2f}%, Avg MASE={avg_mase:.4f}, Refits={refit_count}")
 
 # SAVE RESULTS
 
@@ -245,7 +245,7 @@ os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 for country in COUNTRIES:
     filename = f'results/phase6_live_adaptation/{country}_lstm_live_simulation.csv'
     all_results[country].to_csv(filename, index=False)
-    print(f"✓ Saved {filename}")
+    print(f" Saved {filename}")
 
 # Save summary
 summary = {}
@@ -262,7 +262,7 @@ for country in COUNTRIES:
 with open('results/phase6_live_adaptation/lstm_simulation_summary.json', 'w') as f:
     json.dump(summary, f, indent=2)
 
-print("✓ Saved lstm_simulation_summary.json")
+print(" Saved lstm_simulation_summary.json")
 
 # VISUALIZATIONS
 
@@ -291,7 +291,7 @@ for idx, country in enumerate(COUNTRIES):
 
 plt.tight_layout()
 plt.savefig('results/phase6_live_adaptation/lstm_performance_evolution.png', dpi=300, bbox_inches='tight')
-print("✓ Saved lstm_performance_evolution.png")
+print(" Saved lstm_performance_evolution.png")
 plt.close()
 
 print("\n" + "="*80)

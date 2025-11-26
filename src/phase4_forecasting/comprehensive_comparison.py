@@ -160,7 +160,7 @@ plt.tight_layout()
 plt.savefig('results/all_models_comparison_chart.png', dpi=150, bbox_inches='tight')
 plt.close()
 
-print("✓ Comparison chart saved")
+print(" Comparison chart saved")
 
 # Create detailed comparison plot
 fig, axes = plt.subplots(3, 1, figsize=(14, 12))
@@ -196,7 +196,7 @@ plt.tight_layout()
 plt.savefig('results/all_models_by_country.png', dpi=150, bbox_inches='tight')
 plt.close()
 
-print("✓ Country comparison chart saved")
+print(" Country comparison chart saved")
 
 # ============================================================================
 # SUMMARY STATISTICS
@@ -230,4 +230,4 @@ if not vanilla_available:
     print("  3. Run: python src/phase3e_vanilla_rnn_model_building.py")
     print("  4. Run: python src/phase4e_vanilla_rnn_forecasting.py")
 if gru_available and vanilla_available:
-    print("  ✓ All models complete! You now have comprehensive comparison.")
+    print("   All models complete! You now have comprehensive comparison.")
