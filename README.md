@@ -1,34 +1,115 @@
-# OPSD PowerDesk Time Series Forecasting Project
+# OPSD PowerDesk: Electric Load Forecasting System
 
-## Project Structure
+[![Python](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1+cu118-red.svg)](https://pytorch.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.51-orange.svg)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+> **Advanced Time Series Analysis & Forecasting for European Electric Load Data**
+> 
+> A comprehensive machine learning pipeline for day-ahead electricity load forecasting using OPSD data for Austria (AT), Belgium (BE), and Bulgaria (BG). Features SARIMA, LSTM, GRU, and Vanilla RNN models with anomaly detection and live monitoring capabilities.
+
+## 🎯 Project Overview
+
+This project implements a complete ML pipeline for electric load forecasting with:
+- **4 forecasting models**: SARIMA, LSTM, GRU, Vanilla RNN
+- **50,401 hours** of historical data (2014-2020)
+- **3 countries** analyzed: Austria, Belgium, Bulgaria
+- **Best accuracy**: 0.41 MASE (GRU on Austria)
+- **Live monitoring**: 3,500-hour simulation with adaptive refitting
+- **Interactive dashboard**: Real-time visualization with Streamlit
+
+## 📊 Key Results
+
+| Model | AT (MASE) | BE (MASE) | BG (MASE) | Avg MASE |
+|-------|-----------|-----------|-----------|----------|
+| **GRU** | **0.41** 🥇 | 0.95 | 0.82 | **0.73** |
+| **Vanilla RNN** | 0.46 | **0.69** 🥇 | 1.11 | 0.75 |
+| **LSTM** | 0.67 | 0.63 | 1.25 | 0.85 |
+| **SARIMA** | 0.96 | 0.96 | **0.85** 🥇 | 0.92 |
+
+- **Best Overall Model**: GRU (0.73 average MASE)
+- **Anomalies Detected**: 21 total (2.15% rate)
+- **Perfect Anomaly Classification**: 100% PR-AUC
+- **Live Adaptation**: 10 successful refits over 146 days
+
+## 🚀 Quick Start
+
+### Launch Dashboard
+```powershell
+# Activate virtual environment
+.venv\Scripts\Activate.ps1
+
+# Start interactive dashboard
+python -m streamlit run dashboard.py
+
+# Access at: http://localhost:8501
+```
+
+### Run Full Pipeline
+```powershell
+# 1. Data Preparation
+python src/data_cleaning.py
+python src/data_preprocessing.py
+
+# 2. Model Training
+python src/phase3_model_building/sarima_model_building.py
+python src/phase3_model_building/lstm_model_building.py
+python src/phase3_model_building/gru_model_building.py
+python src/phase3_model_building/vanilla_rnn_model_building.py
+
+# 3. Forecasting
+python src/phase4_forecasting/sarima_forecasting_backtesting.py
+python src/phase4_forecasting/lstm_forecasting_backtesting.py
+python src/phase4_forecasting/gru_forecasting_backtesting.py
+python src/phase4_forecasting/vanilla_rnn_forecasting_backtesting.py
+
+# 4. Anomaly Detection
+python src/phase5_anomaly_detection/anomaly_detection.py
+python src/phase5_anomaly_detection/ml_anomaly_classifier.py
+
+# 5. Live Monitoring
+python src/phase6_live_adaptation/live_monitoring_simulation.py
+```
+
+## 📁 Project Structure
 
 ```
 ATA/
-├── src/                          # Source code
-│   ├── phase3_model_building.py           # Phase 1-2: STL, ACF/PACF, SARIMA order selection
-│   ├── phase3b_lstm_model_building.py     # Phase 2b: LSTM model training
-│   ├── phase4_forecasting_backtesting.py  # Phase 3: SARIMA forecasting
-│   ├── phase4b_lstm_forecasting_backtesting.py  # Phase 3b: LSTM forecasting
-│   ├── phase5_anomaly_detection.py        # Phase 4: Z-score & CUSUM anomaly detection
-│   └── phase5b_ml_anomaly_classifier.py   # Phase 4b: ML-based anomaly classifier
+├── src/                              # Source code
+│   ├── data_cleaning.py              # Phase 1: Data validation & cleaning
+│   ├── data_preprocessing.py         # Phase 1: Train/val/test splits
+│   ├── phase3_model_building/        # Phase 3: Model training scripts
+│   │   ├── sarima_model_building.py
+│   │   ├── lstm_model_building.py
+│   │   ├── gru_model_building.py
+│   │   └── vanilla_rnn_model_building.py
+│   ├── phase4_forecasting/           # Phase 4: Forecasting scripts
+│   ├── phase5_anomaly_detection/     # Phase 5: Anomaly detection
+│   └── phase6_live_adaptation/       # Phase 6: Live monitoring
 │
-├── data/                         # Input datasets
-│   └── time_series_60min_singleindex.csv  # OPSD hourly load data
+├── data/                             # Datasets
+│   ├── time_series_60min_singleindex.csv  # Raw OPSD data (50,401 hrs)
+│   └── preprocessed/                 # Train/val/test splits
 │
-├── results/                      # All outputs organized by phase
-│   ├── phase2_results/          # STL decomposition, ACF/PACF plots (11 files)
-│   ├── phase3_results/          # SARIMA model selection (5 files)
-│   ├── phase3b_lstm_results/    # LSTM training history (4 files)
-│   ├── phase4_results/          # SARIMA forecasts & metrics (9 files)
-│   ├── phase4b_lstm_results/    # LSTM forecasts & comparison (9 files)
-│   ├── outputs/                 # Anomaly detection results (10 files)
-│   └── models/                  # Trained LSTM models (3 .pt files)
+├── results/                          # All outputs
+│   ├── preprocessing/                # Cleaning visualizations (7 files)
+│   ├── phase3d_gru_results/          # GRU training (3 files)
+│   ├── phase3e_vanilla_rnn_results/  # RNN training (3 files)
+│   ├── phase4_results/               # SARIMA forecasts (8 files)
+│   ├── phase4b_lstm_results/         # LSTM forecasts (9 files)
+│   ├── phase4c_gru_results/          # GRU forecasts (6 files)
+│   ├── phase4d_rnn_results/          # RNN forecasts (6 files)
+│   └── phase6_live_adaptation/       # Live simulation (16 files)
 │
-├── docs/                         # Documentation
-│   └── OPSD_PowerDesk_Assignment_v2.pdf   # Assignment specifications
-│
-├── .venv/                        # Python virtual environment
-└── README.md                     # This file
+├── outputs/                          # Anomaly detection results (10 files)
+├── phase3_results/                   # SARIMA grid search (5 files)
+├── phase3b_lstm_results/             # LSTM training history (4 files)
+├── phase4_results/                   # Root-level SARIMA results
+├── phase4b_lstm_results/             # Root-level LSTM results
+├── docs/                             # Documentation
+├── dashboard.py                      # Streamlit dashboard
+└── README.md                         # This file
 ```
 
 ## Phases Completed
@@ -111,17 +192,17 @@ ATA/
   - F1 @ Precision≥0.80: 1.0000
   - Top feature: `current_z_score_abs` (importance: 276)
 
-### ✅ Phase 5: Live Monitoring & Online Adaptation
+### ✅ Phase 6: Live Monitoring & Online Adaptation
 - 3,500 hours simulation (146 days) - 75% above minimum
 - Rolling SARIMA refit every 336 hours (2 weeks)
 - Expanding window training with minimum 1,440 hours history
-- **Output:** 4 files in `results/phase6_live_adaptation/`
+- **Output:** 16 files in `results/phase6_live_adaptation/`
 - **Performance:**
   - AT: MAPE 15.73%, MASE 2.11, 10 refits
   - BE: MAPE 10.16%, MASE 1.91, 10 refits
   - BG: MAPE 14.41%, MASE 3.33, 10 refits
 
-### ✅ Phase 6: Interactive Dashboard
+### ✅ Phase 7: Interactive Dashboard
 - Streamlit web application with 5 sections
 - Real-time model comparison across 4 models (SARIMA, LSTM, GRU, RNN)
 - Anomaly detection visualization
