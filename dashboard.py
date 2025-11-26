@@ -169,15 +169,17 @@ with st.spinner("Loading data..."):
 
 # SIDEBAR
 
-st.sidebar.header("⚙️ Settings")
-
 # Countries covered
 countries = ['AT', 'BE', 'BG']
-st.sidebar.markdown("**Countries:** Austria (AT), Belgium (BE), Bulgaria (BG)")
+st.sidebar.markdown("**Countries:**")
+st.sidebar.markdown("🇦🇹 - Austria ")
+st.sidebar.markdown("🇧🇪 - Belgium ")
+st.sidebar.markdown("🇧🇬 - Bulgaria ")
+st.sidebar.markdown("---")
 
 # Section selection
 section = st.sidebar.radio(
-    "Navigate to Section",
+    "NAVIGATION ",
     options=[
         "📊 Overview",
         "📈 Forecast Comparison",
@@ -252,20 +254,20 @@ if section == "📊 Overview":
     with col1:
         st.markdown("**Training Data**")
         st.write("• 2,304 hours (96 days)")
-        st.write("• 80% split")
-        st.write("• June 3 - Sep 6, 2020")
+        st.write("• 80% of total data")
+        st.write("• Used for model training")
     
     with col2:
         st.markdown("**Validation Data**")
         st.write("• 288 hours (12 days)")
-        st.write("• 10% split")
-        st.write("• Sequential after training")
+        st.write("• 10% of total data")
+        st.write("• Used for hyperparameter tuning")
     
     with col3:
         st.markdown("**Test Data**")
         st.write("• 288 hours (12 days)")
-        st.write("• 10% split")
-        st.write("• Sep 19-30, 2020")
+        st.write("• 10% of total data")
+        st.write("• Used for final evaluation")
 
 # SECTION 2: FORECAST COMPARISON
 
