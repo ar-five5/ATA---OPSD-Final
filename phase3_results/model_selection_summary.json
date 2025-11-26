@@ -1,0 +1,130 @@
+{
+  "selection_criterion": "BIC (Bayesian Information Criterion - preferred for larger datasets)",
+  "grid_parameters": {
+    "p_values": [
+      0,
+      1,
+      2
+    ],
+    "d_values": [
+      0,
+      1
+    ],
+    "q_values": [
+      0,
+      1,
+      2
+    ],
+    "P_values": [
+      0,
+      1
+    ],
+    "D_values": [
+      0,
+      1
+    ],
+    "Q_values": [
+      0,
+      1
+    ],
+    "seasonal_period": 24
+  },
+  "selected_models": {
+    "AT": {
+      "selected_by_BIC": {
+        "order": [
+          2,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 516998.23484782863,
+        "BIC": 517058.4582083767
+      },
+      "selected_by_AIC": {
+        "order": [
+          2,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 516998.23484782863,
+        "BIC": 517058.4582083767
+      }
+    },
+    "BE": {
+      "selected_by_BIC": {
+        "order": [
+          2,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 509320.95319441735,
+        "BIC": 509381.17655496544
+      },
+      "selected_by_AIC": {
+        "order": [
+          2,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 509320.95319441735,
+        "BIC": 509381.17655496544
+      }
+    },
+    "BG": {
+      "selected_by_BIC": {
+        "order": [
+          2,
+          1,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 448176.7970875354,
+        "BIC": 448237.0202742504
+      },
+      "selected_by_AIC": {
+        "order": [
+          2,
+          1,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "AIC": 448176.7970875354,
+        "BIC": 448237.0202742504
+      }
+    }
+  }
+}

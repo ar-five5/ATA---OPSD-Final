@@ -1,0 +1,40 @@
+{
+  "architecture": {
+    "type": "LSTM",
+    "input_size": 1,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "output_size": 24,
+    "dropout": 0.2,
+    "lookback_window": 168,
+    "forecast_horizon": 24
+  },
+  "training": {
+    "device": "cuda",
+    "cuda_available": true,
+    "epochs_max": 50,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "early_stopping_patience": 10
+  },
+  "models": {
+    "AT": {
+      "final_train_loss": 0.082648,
+      "final_dev_loss": 0.056979,
+      "epochs_trained": 44,
+      "model_file": "lstm_model_AT.pt"
+    },
+    "BE": {
+      "final_train_loss": 0.062715,
+      "final_dev_loss": 0.084064,
+      "epochs_trained": 36,
+      "model_file": "lstm_model_BE.pt"
+    },
+    "BG": {
+      "final_train_loss": 0.047737,
+      "final_dev_loss": 0.050924,
+      "epochs_trained": 40,
+      "model_file": "lstm_model_BG.pt"
+    }
+  }
+}

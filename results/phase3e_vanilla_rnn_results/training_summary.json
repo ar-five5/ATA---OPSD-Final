@@ -1,0 +1,20 @@
+{
+  "AT": {
+    "num_parameters": 59608,
+    "training_time_seconds": 223.82463359832764,
+    "final_epoch": 22,
+    "best_dev_loss": 0.08118170257167596
+  },
+  "BE": {
+    "num_parameters": 59608,
+    "training_time_seconds": 353.18783020973206,
+    "final_epoch": 34,
+    "best_dev_loss": 0.11216250656319685
+  },
+  "BG": {
+    "num_parameters": 59608,
+    "training_time_seconds": 218.1814956665039,
+    "final_epoch": 21,
+    "best_dev_loss": 0.05333960972309701
+  }
+}

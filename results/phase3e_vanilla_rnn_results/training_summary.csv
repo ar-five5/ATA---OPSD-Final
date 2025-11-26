@@ -1,0 +1,4 @@
+Country,Parameters,Training_Time_s,Final_Epoch,Best_Dev_Loss
+AT,59608,223.8,22,0.081182
+BE,59608,353.2,34,0.112163
+BG,59608,218.2,21,0.05334

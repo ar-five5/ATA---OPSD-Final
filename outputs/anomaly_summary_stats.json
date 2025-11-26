@@ -1,0 +1,29 @@
+{
+  "AT": {
+    "total_points": 976,
+    "z_anomalies": 7,
+    "z_anomaly_rate_%": 0.72,
+    "cusum_anomalies": 634,
+    "cusum_anomaly_rate_%": 64.96,
+    "max_z_score": 3.4,
+    "mean_abs_z": 0.65
+  },
+  "BE": {
+    "total_points": 976,
+    "z_anomalies": 2,
+    "z_anomaly_rate_%": 0.2,
+    "cusum_anomalies": 618,
+    "cusum_anomaly_rate_%": 63.32,
+    "max_z_score": 3.06,
+    "mean_abs_z": 0.67
+  },
+  "BG": {
+    "total_points": 976,
+    "z_anomalies": 12,
+    "z_anomaly_rate_%": 1.23,
+    "cusum_anomalies": 618,
+    "cusum_anomaly_rate_%": 63.32,
+    "max_z_score": 3.62,
+    "mean_abs_z": 0.7
+  }
+}

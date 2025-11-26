@@ -1,0 +1,26 @@
+{
+  "AT": {
+    "MASE": 0.6704,
+    "sMAPE_%": 5.17,
+    "MAPE_%": 5.24,
+    "RMSE_MW": 458.63,
+    "MSE": 210339.28,
+    "n_forecasts": 12
+  },
+  "BE": {
+    "MASE": 0.633,
+    "sMAPE_%": 3.72,
+    "MAPE_%": 3.67,
+    "RMSE_MW": 428.89,
+    "MSE": 183942.5,
+    "n_forecasts": 12
+  },
+  "BG": {
+    "MASE": 1.2505,
+    "sMAPE_%": 4.39,
+    "MAPE_%": 4.5,
+    "RMSE_MW": 190.71,
+    "MSE": 36368.65,
+    "n_forecasts": 12
+  }
+}
