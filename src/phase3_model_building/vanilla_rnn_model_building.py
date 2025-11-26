@@ -1,4 +1,4 @@
-"""
+﻿"""
 Vanilla/Classic RNN Model Building with GPU/CUDA Support
 Implements classic RNN neural network for comparison with SARIMA, LSTM, and GRU models
 """
@@ -10,26 +10,15 @@ import seaborn as sns
 import json
 import os
 import time
-import warnings
-warnings.filterwarnings('ignore')
-
 # PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase3e_vanilla_rnn_results', exist_ok=True)
 
-print("-" * 60)
 print("VANILLA/CLASSIC RNN MODEL BUILDING WITH GPU/CUDA")
-print("-" * 60)
-
 # GPU check
 print("\n Checking CUDA/GPU availability...")
 
@@ -42,7 +31,7 @@ if torch.cuda.is_available():
     print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"  CUDA Version: {torch.version.cuda}")
 else:
-    print("ÃƒÂ¢Ã…Â¡Ã‚Â  CUDA not available - using CPU (will be slower)")
+    print("ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  CUDA not available - using CPU (will be slower)")
 
 # Load data
 print("\n Loading preprocessed data...")
@@ -429,18 +418,15 @@ summary_df.to_csv('results/phase3e_vanilla_rnn_results/training_summary.csv', in
 
 print("\n" + "="*80)
 print("VANILLA RNN TRAINING SUMMARY")
-print("-" * 60)
 print(summary_df.to_string(index=False))
 
 # FINAL MESSAGE
 print("\n Complete!")
 print("\n" + "="*80)
-print("PHASE 3e COMPLETE: Vanilla RNN models trained successfully!")
-print("-" * 60)
 print("\nVanilla RNN characteristics:")
-print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Simplest recurrent architecture")
-print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ No gating mechanisms (unlike LSTM/GRU)")
-print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Prone to vanishing/exploding gradients")
-print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Good baseline for comparison")
-print("  ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Gradient clipping used to stabilize training")
+print("  ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ Simplest recurrent architecture")
+print("  ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ No gating mechanisms (unlike LSTM/GRU)")
+print("  ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ Prone to vanishing/exploding gradients")
+print("  ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ Good baseline for comparison")
+print("  ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ Gradient clipping used to stabilize training")
 print("\nNext step: Run phase4e_vanilla_rnn_forecasting.py for rolling window forecasting")

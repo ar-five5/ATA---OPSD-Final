@@ -1,4 +1,4 @@
-"""
+﻿"""
 Phase 4b: LSTM Forecasting and Backtesting with GPU/CUDA
 Implements 24-step rolling-window forecasting with comprehensive metrics
 """
@@ -9,24 +9,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
-import warnings
-warnings.filterwarnings('ignore')
-
 # PyTorch imports
 import torch
 import torch.nn as nn
 from sklearn.preprocessing import StandardScaler
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase4b_lstm_results', exist_ok=True)
-
-print("-" * 60)
-print("PHASE 4b: LSTM FORECASTING AND BACKTESTING")
-print("-" * 60)
 
 # CHECK CUDA
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -360,8 +348,6 @@ for country in countries:
 # COMPARISON WITH SARIMA
 print("\n" + "="*80)
 print("COMPARING LSTM vs SARIMA PERFORMANCE")
-print("-" * 60)
-
 # Load SARIMA metrics
 with open('results/phase4_results/metrics_summary.json', 'r') as f:
     sarima_metrics = json.load(f)
@@ -415,8 +401,6 @@ for country in countries:
 
 # FINAL SUMMARY
 print("\n" + "="*80)
-print("PHASE 4b COMPLETE!")
-print("-" * 60)
 print(f"\nDevice Used: {device}")
 if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
@@ -434,4 +418,3 @@ print("  9. results/phase4b_lstm_results/lstm_vs_sarima_comparison.csv")
 
 print("\n" + "="*80)
 print("LSTM forecasting complete with SARIMA comparison!")
-print("-" * 60)

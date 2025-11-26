@@ -1,4 +1,4 @@
-"""
+﻿"""
 Phase 4d: Vanilla RNN Forecasting and Backtesting
 Implements 24-step rolling-window forecasting with comprehensive metrics
 """
@@ -9,23 +9,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
-import warnings
-warnings.filterwarnings('ignore')
-
 import torch
 import torch.nn as nn
 from sklearn.preprocessing import StandardScaler
 
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
 import os
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.makedirs(os.path.join(base_dir, 'results/phase4d_rnn_results'), exist_ok=True)
-
-print("-" * 60)
-print("PHASE 4d: VANILLA RNN FORECASTING AND BACKTESTING")
-print("-" * 60)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"\nUsing device: {device}")
@@ -305,10 +295,7 @@ plt.close()
 
 # SUMMARY
 print("\n" + "="*80)
-print("PHASE 4d SUMMARY: VANILLA RNN FORECASTING RESULTS")
-print("-" * 60)
 print("\nPerformance Metrics:")
 print(metrics_df.to_string())
 
 print("\n All results saved to results/phase4d_rnn_results/")
-print("-" * 60)

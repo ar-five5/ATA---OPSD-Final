@@ -1,9 +1,9 @@
-"""
+﻿"""
  Live Monitoring & Online Adaptation Simulation
 Simulates a live data feed with rolling SARIMA refit strategy
 
 Assignment Requirements:
-- Simulate ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 hours of streaming data
+- Simulate ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¥2,000 hours of streaming data
 - Implement ONE online adaptation strategy (Rolling SARIMA refit chosen)
 - Track performance metrics over time
 - Detect performance drift
@@ -27,21 +27,14 @@ import warnings
 from datetime import datetime, timedelta
 warnings.filterwarnings('ignore')
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase6_live_adaptation', exist_ok=True)
 
-print("-" * 60)
 print(" LIVE MONITORING & ONLINE ADAPTATION SIMULATION")
-print("-" * 60)
 print("\nStrategy: Rolling SARIMA Refit")
 print("  - Refit frequency: Every 168 hours (1 week)")
 print("  - Minimum history: 60 days (1,440 hours)")
 print("  - Forecast horizon: 24 hours ahead")
-print("  - Simulation period: ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 hours")
+print("  - Simulation period: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¥2,000 hours")
 
 # CONFIGURATION
 
@@ -105,7 +98,7 @@ print(f"Dataset: {len(df):,} hours ({df.index[0]} to {df.index[-1]})")
 # PREPARE SIMULATION DATA
 
 print("\n Preparing simulation data...")
-print(f"  - Simulation period: {SIMULATION_HOURS:,} hours (ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2,000 required)")
+print(f"  - Simulation period: {SIMULATION_HOURS:,} hours (ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¥2,000 required)")
 print(f"  - Refit frequency: Every {REFIT_FREQUENCY} hours")
 print(f"  - Minimum history: {MIN_HISTORY} hours ({MIN_HISTORY/24:.0f} days)")
 
@@ -128,7 +121,7 @@ for country, load_col in LOAD_COLUMNS.items():
     history_start_idx = start_idx - MIN_HISTORY
     
     if history_start_idx < 0:
-        print(f"ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â  Warning: Insufficient history for {country}. Adjusting simulation start.")
+        print(f"ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  Warning: Insufficient history for {country}. Adjusting simulation start.")
         history_start_idx = 0
         start_idx = MIN_HISTORY
         end_idx = start_idx + SIMULATION_HOURS
@@ -196,7 +189,7 @@ for country in COUNTRIES:
         hours_since_refit = 0
         print(" Initial model trained")
     except Exception as e:
-        print(f"ÃƒÂ¢Ã‚ÂÃ…â€™ Error training initial model: {e}")
+        print(f"ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ Error training initial model: {e}")
         continue
     
     # Simulate hour-by-hour
@@ -228,7 +221,7 @@ for country in COUNTRIES:
             except:
                 # If refit fails, keep using old model
                 refit_this_hour = False
-                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}: ÃƒÂ¢Ã…Â¡Ã‚Â  Refit failed, using existing model")
+                print(f"  Hour {t-sim_start:4d}/{SIMULATION_HOURS}: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  Refit failed, using existing model")
         
         # Generate forecasts
         try:
@@ -449,8 +442,6 @@ print("\n Generating summary report...")
 
 print("\n" + "="*80)
 print("LIVE MONITORING SIMULATION SUMMARY")
-print("-" * 60)
-
 print(f"\nConfiguration:")
 print(f"  - Simulation period: {SIMULATION_HOURS} hours ({SIMULATION_HOURS/24:.0f} days)")
 print(f"  - Refit strategy: Rolling SARIMA with expanding window")
@@ -467,9 +458,6 @@ for country in COUNTRIES:
           f"{stats['avg_mase']:<12.4f} {stats['avg_mape_%']:<12.2f} {stats['avg_rmse_MW']:<12.2f}")
 
 print("\n" + "="*80)
-print("PHASE 6 COMPLETE: Live monitoring simulation finished successfully!")
-print("-" * 60)
-
 print("\nOutputs saved to: results/phase6_live_adaptation/")
 print("  - CSV files with hourly forecasts and metrics")
 print("  - Performance evolution visualizations")

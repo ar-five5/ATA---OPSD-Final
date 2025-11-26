@@ -1,4 +1,4 @@
-"""
+﻿"""
  Day-Ahead 24-Step Forecasting with Backtesting
 Implements rolling-window forecasting and computes evaluation metrics
 """
@@ -10,20 +10,9 @@ import seaborn as sns
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import json
 import os
-import warnings
-warnings.filterwarnings('ignore')
-
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase4_results', exist_ok=True)
 
-print("-" * 60)
 print(" DAY-AHEAD 24-STEP FORECASTING WITH BACKTESTING")
-print("-" * 60)
-
 # LOAD DATA AND SELECTED MODELS
 print("\n Loading data and selected models...")
 
@@ -257,12 +246,12 @@ for country in countries:
     }
     
     print(f"\n{country} Metrics:")
-    print(f"  MASE: {mase:.4f} {'( Better than naive)' if mase < 1 else '(ÃƒÂ¢Ã…Â¡Ã‚Â  Worse than naive)'}")
+    print(f"  MASE: {mase:.4f} {'( Better than naive)' if mase < 1 else '(ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  Worse than naive)'}")
     print(f"  sMAPE: {smape:.2f}%")
     print(f"  MAPE: {mape:.2f}%")
     print(f"  RMSE: {rmse:.2f}")
     print(f"  MSE: {mse:.2f}")
-    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'( Good)' if 75 <= pi_coverage <= 85 else '(ÃƒÂ¢Ã…Â¡Ã‚Â )'}")
+    print(f"  80% PI Coverage: {pi_coverage:.2f}% {'( Good)' if 75 <= pi_coverage <= 85 else '(ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â )'}")
 
 # VISUALIZE FORECASTS
 print("\n Generating forecast visualizations...")
@@ -337,12 +326,9 @@ for country in countries:
 # Print final summary
 print("\n" + "="*80)
 print("METRICS COMPARISON (PRIMARY: MASE)")
-print("-" * 60)
 print(metrics_df.to_string())
 
 print("\n" + "="*80)
-print("PHASE 4 COMPLETE!")
-print("-" * 60)
 print("\nGenerated Files:")
 print("  1. results/phase4_results/forecast_AT.png")
 print("  2. results/phase4_results/forecast_BE.png")
@@ -353,4 +339,3 @@ print("  6. results/phase4_results/forecast_data_AT.csv")
 print("  7. results/phase4_results/forecast_data_BE.csv")
 print("  8. results/phase4_results/forecast_data_BG.csv")
 print("\nDay-ahead forecasting and backtesting completed successfully!")
-print("-" * 60)

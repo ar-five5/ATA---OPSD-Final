@@ -1,4 +1,4 @@
-"""
+﻿"""
 LSTM Model Building with GPU/CUDA Support
 Implements LSTM neural network for comparison with SARIMA models
 """
@@ -9,39 +9,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
-import warnings
-warnings.filterwarnings('ignore')
-
 # PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase3b_lstm_results', exist_ok=True)
 
-print("-" * 60)
 print("LSTM MODEL BUILDING WITH GPU/CUDA")
-print("-" * 60)
-
 # GPU check
 print("\n Checking CUDA/GPU availability...")
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
-
-if torch.cuda.is_available():
-    print(f" CUDA is available!")
-    print(f"  GPU Name: {torch.cuda.get_device_name(0)}")
-    print(f"  GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
-    print(f"  CUDA Version: {torch.version.cuda}")
 else:
-    print("ÃƒÂ¢Ã…Â¡Ã‚Â  CUDA not available - using CPU (will be slower)")
+    print("ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  CUDA not available - using CPU (will be slower)")
 
 # Load data
 print("\n Loading preprocessed data...")
@@ -366,12 +349,9 @@ summary_df = pd.DataFrame({
 
 print("\n" + "="*80)
 print("LSTM MODEL SUMMARY")
-print("-" * 60)
 print(summary_df.to_string())
 
 print("\n" + "="*80)
-print("PHASE 3b COMPLETE!")
-print("-" * 60)
 print(f"\nDevice Used: {device}")
 if torch.cuda.is_available():
     print(f"GPU: {torch.cuda.get_device_name(0)}")
@@ -384,4 +364,3 @@ print("  5. results/phase3b_lstm_results/training_history_BE.png")
 print("  6. results/phase3b_lstm_results/training_history_BG.png")
 print("  7. results/phase3b_lstm_results/model_summary.json")
 print("\nLSTM models trained and ready for Phase 4b forecasting!")
-print("-" * 60)

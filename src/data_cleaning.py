@@ -1,18 +1,9 @@
-"""Load and clean OPSD power data"""
+﻿"""Load and clean OPSD power data"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import warnings
-warnings.filterwarnings('ignore')
-
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-print("OPSD DATA CLEANING PIPELINE")
-print("-" * 60)
-
 print("\nLoading dataset...")
 
 df = pd.read_csv('data/time_series_60min_singleindex.csv')
@@ -53,7 +44,7 @@ for col in load_cols:
     if missing_before > 0:
         df[col] = df[col].ffill().bfill()
         missing_after = df[col].isna().sum()
-        print(f"  {col}: {missing_before} Ã¢â€ â€™ {missing_after} missing values")
+        print(f"  {col}: {missing_before} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ {missing_after} missing values")
 
 df_clean = df.dropna(subset=load_cols)
 print(f"\n Cleaned dataset: {len(df_clean):,} rows ({len(df_clean)/len(df)*100:.1f}% retained)")
@@ -136,7 +127,6 @@ print(" cleaning_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA CLEANING COMPLETE")
-print("-" * 60)
 print(f"\n Cleaned data: {len(df_clean):,} hours")
 print(" Output: data/preprocessed/cleaned_full_data.csv")
 print(" Visualizations: results/preprocessing/")

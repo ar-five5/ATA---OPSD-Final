@@ -1,4 +1,4 @@
-"""
+﻿"""
 GRU Model Building with GPU/CUDA Support
 Implements GRU neural network for comparison with SARIMA and LSTM models
 """
@@ -10,26 +10,15 @@ import seaborn as sns
 import json
 import os
 import time
-import warnings
-warnings.filterwarnings('ignore')
-
 # PyTorch + CUDA
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('results/phase3d_gru_results', exist_ok=True)
 
-print("-" * 60)
 print("GRU MODEL BUILDING WITH GPU/CUDA")
-print("-" * 60)
-
 # GPU check
 print("\n Checking CUDA/GPU availability...")
 
@@ -415,14 +404,11 @@ summary_df.to_csv('results/phase3d_gru_results/training_summary.csv', index=Fals
 
 print("\n" + "="*80)
 print("GRU TRAINING SUMMARY")
-print("-" * 60)
 print(summary_df.to_string(index=False))
 
 # FINAL MESSAGE
 print("\n Complete!")
 print("\n" + "="*80)
-print("PHASE 3d COMPLETE: GRU models trained successfully!")
-print("-" * 60)
 print("\nKey advantages of GRU:")
 print("  - Simpler than LSTM (fewer parameters)")
 print("  - Faster training time")

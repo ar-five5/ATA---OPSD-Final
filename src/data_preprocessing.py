@@ -1,17 +1,9 @@
-"""Split data into train/val/test sets"""
+﻿"""Split data into train/val/test sets"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import warnings
-warnings.filterwarnings('ignore')
-
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
 print("OPSD DATA PREPROCESSING PIPELINE")
-print("-" * 60)
-
 print("\nLoading cleaned data...")
 
 df_clean = pd.read_csv('data/preprocessed/cleaned_full_data.csv')
@@ -142,7 +134,6 @@ print(" split_summary.csv")
 
 print("\n" + "=" * 80)
 print("DATA PREPROCESSING COMPLETE")
-print("-" * 60)
 print(f"\n Train set: {len(train_data):,} hours")
 print(f" Validation set: {len(val_data):,} hours")
 print(f" Test set: {len(test_data):,} hours")

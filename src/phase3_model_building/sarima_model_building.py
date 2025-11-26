@@ -1,4 +1,4 @@
-"""
+﻿"""
 Model Building - SARIMA Grid Search with AIC/BIC (Parallel)
 Implements optimal SARIMA parameter selection for day-ahead electricity load forecasting
 Uses parallel processing for faster grid search
@@ -18,11 +18,6 @@ from joblib import Parallel, delayed
 import gc  # Garbage collector for memory management
 warnings.filterwarnings('ignore')
 
-# plotting style
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-# output dir
 os.makedirs('phase3_results', exist_ok=True)
 
 # Determine number of CPU cores
@@ -84,10 +79,7 @@ def fit_sarima_model(train_data, dev_data, p, d, q, P, D, Q, s, country):
             'error': str(e)
         }
 
-print("-" * 60)
 print("MODEL BUILDING - SARIMA GRID SEARCH")
-print("-" * 60)
-
 # Load dataset
 print("\n Loading dataset...")
 df = pd.read_csv('data/preprocessed/train_data.csv', parse_dates=['utc_timestamp'])
@@ -146,10 +138,10 @@ for country, load_col in load_columns.items():
 # SARIMA GRID SEARCH WITH AIC/BIC + DEV SET VALIDATION
 print("\n Performing SARIMA grid search with AIC/BIC + Dev Set Validation...")
 print("Grid parameters:")
-print("  - (p,q) ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1,2}")
-print("  - d ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
-print("  - (P,Q) ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
-print("  - D ÃƒÂ¢Ã‹â€ Ã‹â€  {0,1}")
+print("  - (p,q) ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â  {0,1,2}")
+print("  - d ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â  {0,1}")
+print("  - (P,Q) ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â  {0,1}")
+print("  - D ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â  {0,1}")
 print("  - s = 24 (daily seasonality)")
 print("Note: Models trained on train set, validated on dev set")
 
@@ -279,7 +271,7 @@ for country, load_col in load_columns.items():
                     print(f"  Failed: ({result['p']},{result['d']},{result['q']})({result['P']},{result['D']},{result['Q']})")
             
         except KeyboardInterrupt:
-            print("\nKeyboardInterrupt received ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â saving progress and exiting gracefully.")
+            print("\nKeyboardInterrupt received ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â saving progress and exiting gracefully.")
             # Reload from partial CSV to get latest state
             try:
                 prev = pd.read_csv(partial_csv)
@@ -526,20 +518,17 @@ if summary_data:
     summary_df.to_csv('phase3_results/selected_models.csv', index=False)
     print(" Saved: phase3_results/selected_models.csv")
 else:
-    print("ÃƒÂ¢Ã…Â¡Ã‚Â  No completed countries; selected_models.csv not created yet")
+    print("ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  No completed countries; selected_models.csv not created yet")
 
 # Print summary
 print("\n" + "="*80)
 print("MODEL SELECTION SUMMARY (Based on BIC)")
-print("-" * 60)
 if summary_data:
     print(summary_df.to_string(index=False))
 else:
-    print("No results yet ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â grid search incomplete or interrupted.")
+    print("No results yet ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â grid search incomplete or interrupted.")
 
 print("\n" + "="*80)
-print("PHASE 3 COMPLETE!")
-print("-" * 60)
 print("\nGenerated Files:")
 print("  1. phase3_results/grid_search_AT.png")
 print("  2. phase3_results/grid_search_BE.png")
@@ -548,4 +537,3 @@ print("  4. phase3_results/model_selection_summary.json")
 print("  5. phase3_results/selected_models.csv")
 print("\nModel Building Phase completed successfully!")
 print("Ready for Day-ahead 24-step forecasting with backtesting")
-print("-" * 60)

@@ -1,4 +1,4 @@
-"""GRU Live Monitoring - 3,500 hour evaluation with periodic retraining"""
+﻿"""GRU Live Monitoring - 3,500 hour evaluation with periodic retraining"""
 
 import pandas as pd
 import numpy as np
@@ -14,12 +14,7 @@ import warnings
 from datetime import datetime
 warnings.filterwarnings('ignore')
 
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
-
-print("-" * 60)
 print(" GRU LIVE MONITORING - 3,500 HOUR EVALUATION")
-print("-" * 60)
 print("\nStrategy: Online Retraining (Equalized with SARIMA)")
 print("  - Refit frequency: Every 336 hours (2 weeks)")
 print("  - Minimum history: 60 days (1,440 hours)")
@@ -153,9 +148,7 @@ all_results = {}
 for country in COUNTRIES:
     print("\n" + "="*60)
     print(f"COUNTRY: {country}")
-    print("-" * 60)
-    
-    # Extract country data
+        # Extract country data
     country_df = df[['utc_timestamp', LOAD_COLUMNS[country]]].copy()
     country_df.columns = ['timestamp', 'load']
     country_df = country_df.dropna().reset_index(drop=True)
@@ -296,6 +289,5 @@ plt.close()
 
 print("\n" + "="*80)
 print("GRU LIVE MONITORING COMPLETE")
-print("-" * 60)
 for country in COUNTRIES:
     print(f"{country}: MAPE {summary[country]['avg_mape']:.2f}% | MASE {summary[country]['avg_mase']:.4f} | Refits {summary[country]['num_refits']}")
