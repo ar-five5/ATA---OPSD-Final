@@ -282,100 +282,146 @@ elif section == "📈 Forecast Comparison":
         
         for idx, country in enumerate(countries):
             with tabs[idx]:
-                st.subheader(f"{country} - Day-Ahead Forecasts")
+                st.subheader(f"{country} - SARIMA vs Neural Network Forecasts")
                 
                 # Get data
                 sarima_df = sarima_forecasts.get(country)
                 lstm_df = lstm_forecasts.get(country)
+                gru_df = gru_forecasts.get(country)
+                rnn_df = rnn_forecasts.get(country)
                 
                 if sarima_df is None:
                     st.error(f"No forecast data available for {country}")
                     continue
                 
-                # Create forecast plot
-                fig = go.Figure()
+                # Create 3 comparison plots
+                comp_tabs = st.tabs(["SARIMA vs LSTM", "SARIMA vs GRU", "SARIMA vs RNN"])
                 
-                # Actual load
-                fig.add_trace(go.Scatter(
-                    x=sarima_df['timestamp'],
-                    y=sarima_df['actual'],
-                    name='Actual Load',
-                    line=dict(color='black', width=2),
-                    mode='lines'
-                ))
-                
-                # SARIMA forecast
-                fig.add_trace(go.Scatter(
-                    x=sarima_df['timestamp'],
-                    y=sarima_df['forecast'],
-                    name='SARIMA Forecast',
-                    line=dict(color='blue', width=1.5),
-                    mode='lines'
-                ))
-                
-                # SARIMA prediction intervals
-                fig.add_trace(go.Scatter(
-                    x=sarima_df['timestamp'],
-                    y=sarima_df['upper_bound_80%'],
-                    fill=None,
-                    mode='lines',
-                    line=dict(color='lightblue', width=0),
-                    showlegend=False,
-                    hoverinfo='skip'
-                ))
-                
-                fig.add_trace(go.Scatter(
-                    x=sarima_df['timestamp'],
-                    y=sarima_df['lower_bound_80%'],
-                    fill='tonexty',
-                    mode='lines',
-                    line=dict(color='lightblue', width=0),
-                    name='80% Prediction Interval',
-                    fillcolor='rgba(173, 216, 230, 0.3)'
-                ))
-                
-                # LSTM forecast if available
-                if lstm_df is not None:
-                    fig.add_trace(go.Scatter(
-                        x=lstm_df['timestamp'],
-                        y=lstm_df['forecast'],
-                        name='LSTM Forecast',
-                        line=dict(color='green', width=1.5, dash='dash'),
+                # Plot 1: SARIMA vs LSTM
+                with comp_tabs[0]:
+                    fig1 = go.Figure()
+                    
+                    # Actual load
+                    fig1.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['actual'],
+                        name='Actual Load',
+                        line=dict(color='black', width=2.5),
                         mode='lines'
                     ))
-                
-                # GRU forecast if available
-                gru_df = gru_forecasts.get(country)
-                if gru_df is not None:
-                    fig.add_trace(go.Scatter(
-                        x=gru_df['timestamp'],
-                        y=gru_df['forecast'],
-                        name='GRU Forecast',
-                        line=dict(color='orange', width=1.5, dash='dot'),
+                    
+                    # SARIMA forecast
+                    fig1.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['forecast'],
+                        name='SARIMA Forecast',
+                        line=dict(color='blue', width=1.8),
                         mode='lines'
                     ))
+                    
+                    # LSTM forecast
+                    if lstm_df is not None:
+                        fig1.add_trace(go.Scatter(
+                            x=lstm_df['timestamp'],
+                            y=lstm_df['forecast'],
+                            name='LSTM Forecast',
+                            line=dict(color='green', width=1.8, dash='dash'),
+                            mode='lines'
+                        ))
+                    
+                    fig1.update_layout(
+                        title=f"{country} - SARIMA vs LSTM",
+                        xaxis_title="Timestamp",
+                        yaxis_title="Load (MW)",
+                        hovermode='x unified',
+                        height=450,
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+                    )
+                    st.plotly_chart(fig1, width='stretch')
                 
-                # Vanilla RNN forecast if available
-                rnn_df = rnn_forecasts.get(country)
-                if rnn_df is not None:
-                    fig.add_trace(go.Scatter(
-                        x=rnn_df['timestamp'],
-                        y=rnn_df['forecast'],
-                        name='Vanilla RNN Forecast',
-                        line=dict(color='red', width=1.5, dash='dashdot'),
+                # Plot 2: SARIMA vs GRU
+                with comp_tabs[1]:
+                    fig2 = go.Figure()
+                    
+                    # Actual load
+                    fig2.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['actual'],
+                        name='Actual Load',
+                        line=dict(color='black', width=2.5),
                         mode='lines'
                     ))
+                    
+                    # SARIMA forecast
+                    fig2.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['forecast'],
+                        name='SARIMA Forecast',
+                        line=dict(color='blue', width=1.8),
+                        mode='lines'
+                    ))
+                    
+                    # GRU forecast
+                    if gru_df is not None:
+                        fig2.add_trace(go.Scatter(
+                            x=gru_df['timestamp'],
+                            y=gru_df['forecast'],
+                            name='GRU Forecast',
+                            line=dict(color='orange', width=1.8, dash='dot'),
+                            mode='lines'
+                        ))
+                    
+                    fig2.update_layout(
+                        title=f"{country} - SARIMA vs GRU",
+                        xaxis_title="Timestamp",
+                        yaxis_title="Load (MW)",
+                        hovermode='x unified',
+                        height=450,
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+                    )
+                    st.plotly_chart(fig2, width='stretch')
                 
-                fig.update_layout(
-                    title=f"{country} - Actual Load vs Forecasts",
-                    xaxis_title="Timestamp",
-                    yaxis_title="Load (MW)",
-                    hovermode='x unified',
-                    height=500,
-                    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-                )
-                
-                st.plotly_chart(fig, width='stretch')
+                # Plot 3: SARIMA vs RNN
+                with comp_tabs[2]:
+                    fig3 = go.Figure()
+                    
+                    # Actual load
+                    fig3.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['actual'],
+                        name='Actual Load',
+                        line=dict(color='black', width=2.5),
+                        mode='lines'
+                    ))
+                    
+                    # SARIMA forecast
+                    fig3.add_trace(go.Scatter(
+                        x=sarima_df['timestamp'],
+                        y=sarima_df['forecast'],
+                        name='SARIMA Forecast',
+                        line=dict(color='blue', width=1.8),
+                        mode='lines'
+                    ))
+                    
+                    # RNN forecast
+                    if rnn_df is not None:
+                        fig3.add_trace(go.Scatter(
+                            x=rnn_df['timestamp'],
+                            y=rnn_df['forecast'],
+                            name='Vanilla RNN Forecast',
+                            line=dict(color='red', width=1.8, dash='dashdot'),
+                            mode='lines'
+                        ))
+                    
+                    fig3.update_layout(
+                        title=f"{country} - SARIMA vs Vanilla RNN",
+                        xaxis_title="Timestamp",
+                        yaxis_title="Load (MW)",
+                        hovermode='x unified',
+                        height=450,
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+                    )
+                    st.plotly_chart(fig3, width='stretch')
                 
                 # Metrics table
                 st.markdown("#### Performance Metrics")
